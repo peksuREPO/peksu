@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Peksu — Yönetim Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <!-- Şifre kapısı -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <div class="logo">Pek<span>su</span></div>
+      <p>Yönetim Paneli — Devam etmek için şifre girin</p>
+      <form id="gateForm">
+        <input type="password" id="gatePass" placeholder="Şifre" autocomplete="current-password" autofocus />
+        <div class="gate-err" id="gateErr"></div>
+        <button class="btn btn-primary" style="width:100%" type="submit">Giriş Yap</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div id="app" hidden>
+    <header class="admin-top">
+      <div class="inner">
+        <span class="logo">Pek<span>su</span></span>
+        <span class="tag">Yönetim</span>
+        <span class="status" id="topStatus"></span>
+        <span class="spacer"></span>
+        <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">Siteyi Gör ↗</a>
+        <button class="btn btn-outline btn-sm" id="logoutBtn">Çıkış</button>
+      </div>
+    </header>
+
+    <main class="wrap" id="form"><!-- formlar JS ile --></main>
+
+    <div class="savebar">
+      <div class="inner">
+        <button class="btn btn-outline" id="downloadBtn">⬇ JSON İndir</button>
+        <button class="btn btn-outline" id="reloadBtn">↺ Sıfırla</button>
+        <span class="spacer"></span>
+        <span class="status" id="saveStatus"></span>
+        <button class="btn btn-primary" id="saveBtn">💾 GitHub'a Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

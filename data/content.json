@@ -1,0 +1,100 @@
+{
+  "brand": {
+    "name": "Peksu",
+    "slogan": "Temiz su, kapınıza kadar."
+  },
+  "hero": {
+    "eyebrow": "7/24 KESİNTİSİZ SU DAĞITIMI",
+    "titleLead": "Temiz su,",
+    "titleHighlight": "kapınıza",
+    "titleTail": "kadar.",
+    "lead": "Peksu; evinize, iş yerinize ve şantiyenize hijyenik, kesintisiz ve zamanında su dağıtımı sağlar. Bir telefon kadar yakınınızdayız.",
+    "primaryBtn": "Sipariş Ver",
+    "secondaryBtn": "Hizmetleri İncele",
+    "stats": [
+      { "value": "25+", "label": "Yıllık Deneyim" },
+      { "value": "16", "label": "Hizmet Bölgesi" },
+      { "value": "7/24", "label": "Kesintisiz Hizmet" }
+    ]
+  },
+  "contact": {
+    "phoneDisplay": "0 (5xx) xxx xx xx",
+    "phoneHref": "+900000000000",
+    "whatsapp": "900000000000",
+    "email": "info@peksu.com",
+    "address": "Adres bilgisi buraya",
+    "hours": "7/24 Açık"
+  },
+  "services": {
+    "eyebrow": "HİZMETLERİMİZ",
+    "title": "İhtiyacınıza uygun su çözümleri",
+    "subtitle": "İçme suyundan havuz suyuna, şantiyeden otele kadar her ölçekte su tedariki.",
+    "items": [
+      { "icon": "💧", "title": "İçme Suyu", "desc": "Evler ve iş yerleri için hijyenik, içilebilir kalitede temiz su tedariki." },
+      { "icon": "🚿", "title": "Kullanma Suyu", "desc": "Su kesintilerine karşı depolarınızı hızla dolduran kullanım suyu." },
+      { "icon": "🏊", "title": "Havuz Suyu", "desc": "Villa ve tesis havuzları için berrak, dengeli havuz suyu dolumu." },
+      { "icon": "🏗️", "title": "İnşaat Suyu", "desc": "İnşaat ve yapı işleriniz için 1-25 ton kapasiteli su tedariki." },
+      { "icon": "👷", "title": "Şantiye Suyu", "desc": "Şantiyeleriniz için kesintisiz ve programlı su dağıtımı." },
+      { "icon": "🏨", "title": "Otel & Tesis Suyu", "desc": "Oteller ve toplu tesisler için yüksek kapasiteli teslimat." }
+    ]
+  },
+  "steps": {
+    "eyebrow": "NASIL ÇALIŞIR?",
+    "title": "3 adımda su siparişi",
+    "items": [
+      { "title": "Arayın veya Yazın", "desc": "Telefon ya da WhatsApp ile bize ulaşın." },
+      { "title": "Detayları Belirtin", "desc": "Adres, miktar ve su türünü iletin." },
+      { "title": "Kapınıza Gelsin", "desc": "Ekibimiz en kısa sürede adresinizde." }
+    ]
+  },
+  "regions": {
+    "eyebrow": "HİZMET BÖLGELERİ",
+    "title": "Hangi bölgelerde hizmet veriyoruz?",
+    "subtitle": "Aşağıdaki bölgelerin tamamına düzenli ve hızlı dağıtım yapıyoruz.",
+    "items": ["Merkez", "Bölge 2", "Bölge 3", "Bölge 4", "Bölge 5", "Bölge 6", "Bölge 7", "Bölge 8", "Bölge 9", "Bölge 10", "Bölge 11", "Bölge 12"]
+  },
+  "about": {
+    "eyebrow": "HAKKIMIZDA",
+    "title": "Yıllardır bölgenizin güvenilir su tedarikçisi",
+    "text": "Peksu olarak uzun yıllardır bölgemizde temiz ve kesintisiz su dağıtımı yapıyoruz. Hijyene önem veren araç filomuz ve deneyimli ekibimizle, siparişinizi zamanında ve eksiksiz teslim etmeyi ilke edindik.",
+    "features": [
+      "Paslanmaz, düzenli dezenfekte edilen tankerler",
+      "7 gün 24 saat kesintisiz hizmet",
+      "Bölge geneli hızlı ulaşım",
+      "Deneyimli ve güler yüzlü ekip"
+    ],
+    "badges": [
+      { "value": "25+", "label": "Yıl Deneyim" },
+      { "value": "7/24", "label": "Hizmet" },
+      { "value": "%100", "label": "Hijyen" },
+      { "value": "16", "label": "Bölge" }
+    ]
+  },
+  "fleet": {
+    "eyebrow": "ARAÇ FİLOMUZ",
+    "title": "Her ihtiyaca uygun kapasite",
+    "subtitle": "Farklı tonajlardaki paslanmaz tankerlerimizle küçük-büyük her siparişe çözüm.",
+    "items": [
+      { "cap": "3", "unit": "ton", "desc": "Küçük teslimatlar için ideal." },
+      { "cap": "6", "unit": "ton", "desc": "Ev ve iş yeri depoları." },
+      { "cap": "24", "unit": "ton", "desc": "Havuz ve toplu tesisler." },
+      { "cap": "25", "unit": "ton", "desc": "İnşaat ve büyük ölçek." }
+    ]
+  },
+  "faq": {
+    "eyebrow": "SIKÇA SORULAN SORULAR",
+    "title": "Aklınıza takılanlar",
+    "items": [
+      { "q": "Ne kadar sürede teslimat yapıyorsunuz?", "a": "Bölgenize ve yoğunluğa göre siparişinizi en kısa sürede adresinize ulaştırıyoruz." },
+      { "q": "Hafta sonu ve gece hizmet veriyor musunuz?", "a": "Evet, 7 gün 24 saat kesintisiz hizmet veriyoruz." },
+      { "q": "Tankerleriniz hijyenik mi?", "a": "Tüm araçlarımız paslanmaz malzemeden olup periyodik olarak dezenfekte edilir." },
+      { "q": "Minimum sipariş miktarı var mı?", "a": "İhtiyacınıza uygun farklı kapasitelerde tankerlerimiz mevcuttur; bize danışabilirsiniz." },
+      { "q": "Ödeme nasıl yapılıyor?", "a": "Ödeme seçeneklerimiz için lütfen bizimle iletişime geçin." }
+    ]
+  },
+  "contactSection": {
+    "eyebrow": "İLETİŞİM",
+    "title": "Siparişiniz bir telefon kadar yakın",
+    "text": "Aşağıdaki kanallardan bize ulaşın, ekibimiz en kısa sürede size dönüş yapsın."
+  }
+}
