@@ -255,11 +255,28 @@ ul{list-style:none}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.08)}
 .footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:15px 0}
 .footer-bottom-inner p{font-size:.88rem;color:#6f97a1}
+.footer-legal{display:flex;align-items:center;gap:8px;font-size:.84rem}
+.footer-legal a{color:#9fc6cf;transition:color .15s}
+.footer-legal a:hover{color:var(--aqua-300)}
+.footer-legal span{color:#4d6b74}
 .powered-by{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#5a828c;transition:color .15s}
 .powered-by strong{color:#9fc6cf;font-weight:700}
 .powered-by:hover{color:var(--aqua-300)}
 .powered-by:hover strong{color:var(--aqua-300)}
 @media(max-width:520px){.footer-bottom-inner{justify-content:center;text-align:center}}
+
+/* Hukuki sayfalar (Gizlilik / KVKK) */
+.legal{padding:clamp(40px,6vw,72px) 0 clamp(50px,7vw,90px)}
+.legal h1{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:8px}
+.legal .legal-updated{color:var(--muted);font-size:.9rem;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.legal h2{font-size:1.25rem;margin:30px 0 10px;color:var(--deep)}
+.legal p,.legal li{color:var(--text);margin-bottom:12px;line-height:1.75}
+.legal ul{margin:0 0 12px;padding-left:0}
+.legal li{position:relative;padding-left:22px}
+.legal li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--aqua-500)}
+.legal a{color:var(--aqua-700);font-weight:600}
+.legal .legal-box{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:18px 0}
+.legal-back{margin-left:auto}
 
 /* Sabit butonlar */
 .floats{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;gap:12px}
