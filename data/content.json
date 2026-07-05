@@ -35,7 +35,7 @@
     "email": "info@peksu.com",
     "address": "Karabağ Mah. Dikenliyer Cad. No:20/B İç Kapı No:1 Bodrum-MUĞLA",
     "hours": "7/24 Açık",
-    "contactMessage": "Merhaba, Peksu hakkında bilgi almak istiyorum."
+    "contactMessage": "Merhaba, firmanız hakkında bilgi almak istiyorum."
   },
   "services": {
     "eyebrow": "HİZMETLERİMİZ",
@@ -134,11 +134,7 @@
       },
       {
         "name": "Turgutreis",
-        "streets": [
-          "Atatürk Caddesi",
-          "Cumhuriyet Caddesi",
-          "İnönü Caddesi"
-        ]
+        "streets": []
       },
       {
         "name": "Akyarlar",
@@ -169,7 +165,7 @@
       "Talep üzerine güncel rapor paylaşımı"
     ],
     "ctaLabel": "Analiz Raporunu Talep Et",
-    "requestMessage": "Merhaba, Peksu güncel su analiz raporunu talep etmek istiyorum."
+    "requestMessage": "Merhaba, firmanızın güncel su analiz raporunu talep etmek istiyorum."
   },
   "about": {
     "eyebrow": "HAKKIMIZDA",
@@ -195,7 +191,7 @@
         "label": "Hijyen"
       },
       {
-        "value": "16",
+        "value": "15",
         "label": "Bölge"
       }
     ]
