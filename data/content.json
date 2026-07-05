@@ -91,7 +91,23 @@
     "eyebrow": "HİZMET BÖLGELERİ",
     "title": "Bodrum genelinde hizmetinizdeyiz",
     "subtitle": "Aşağıdaki bölgelerin tamamına düzenli ve hızlı dağıtım yapıyoruz.",
-    "items": ["Merkez", "Konacık", "Ortakent", "Bitez", "Gümbet", "Torba", "Türkbükü", "Göltürkbükü", "Yalıkavak", "Gündoğan", "Turgutreis", "Akyarlar", "Güvercinlik", "Mumcular", "Karabağ"]
+    "items": [
+      "Merkez",
+      "Konacık",
+      "Ortakent",
+      "Bitez",
+      "Gümbet",
+      "Torba",
+      "Türkbükü",
+      "Göltürkbükü",
+      "Yalıkavak",
+      "Gündoğan",
+      "Turgutreis",
+      "Akyarlar",
+      "Güvercinlik",
+      "Mumcular",
+      "Karabağ"
+    ]
   },
   "quality": {
     "eyebrow": "SU KALİTESİ VE ANALİZ",
@@ -141,21 +157,21 @@
     "subtitle": "Farklı tonajlardaki paslanmaz tankerlerimizle küçük-büyük her siparişe çözüm.",
     "items": [
       {
-        "cap": "6",
+        "cap": "20",
         "unit": "ton",
-        "desc": "Ev ve iş yeri depoları.",
+        "desc": "İnşaat ve büyük ölçek.",
         "img": "assets/img/arac1.jpeg"
       },
       {
-        "cap": "24",
+        "cap": "20",
         "unit": "ton",
         "desc": "Havuz ve toplu tesisler.",
         "img": "assets/img/arac2.jpeg"
       },
       {
-        "cap": "25",
+        "cap": "6",
         "unit": "ton",
-        "desc": "İnşaat ve büyük ölçek.",
+        "desc": "Ev ve iş yeri depoları.",
         "img": "assets/img/arac3.jpeg"
       }
     ]
