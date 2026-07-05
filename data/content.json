@@ -15,7 +15,7 @@
   },
   "heroStats": [
     {
-      "value": "25+",
+      "value": "5+",
       "label": "Yıllık Deneyim"
     },
     {
@@ -28,12 +28,12 @@
     }
   ],
   "contact": {
-    "phoneDisplay": "0 (5xx) xxx xx xx",
-    "phoneHref": "+900000000000",
-    "whatsapp": "900000000000",
-    "instagram": "https://instagram.com/",
+    "phoneDisplay": "0 (533) 214 61 70",
+    "phoneHref": "+905332146170",
+    "whatsapp": "+905332146170",
+    "instagram": "https://www.instagram.com/peksuturgutreistanker?igsh=MTY3enlhb2g0OTEycA==",
     "email": "info@peksu.com",
-    "address": "Adres bilgisi buraya",
+    "address": "Karabağ Mah. Dikenliyer Cad. No:20/B İç Kapı No:1 Bodrum-MUĞLA",
     "hours": "7/24 Açık",
     "contactMessage": "Merhaba, Peksu hakkında bilgi almak istiyorum."
   },
