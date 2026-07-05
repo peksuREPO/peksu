@@ -14,9 +14,18 @@
     "secondaryBtn": "Hizmetleri İncele"
   },
   "heroStats": [
-    { "value": "25+", "label": "Yıllık Deneyim" },
-    { "value": "16", "label": "Hizmet Bölgesi" },
-    { "value": "7/24", "label": "Kesintisiz Hizmet" }
+    {
+      "value": "25+",
+      "label": "Yıllık Deneyim"
+    },
+    {
+      "value": "16",
+      "label": "Hizmet Bölgesi"
+    },
+    {
+      "value": "7/24",
+      "label": "Kesintisiz Hizmet"
+    }
   ],
   "contact": {
     "phoneDisplay": "0 (5xx) xxx xx xx",
@@ -33,20 +42,49 @@
     "title": "İhtiyacınıza uygun su çözümleri",
     "subtitle": "Kullanma suyundan havuz suyuna, şantiyeden otele kadar her ölçekte su tedariki.",
     "items": [
-      { "icon": "use", "title": "Kullanma Suyu", "desc": "Su kesintilerine karşı depolarınızı hızla dolduran kullanım suyu." },
-      { "icon": "pool", "title": "Havuz Suyu", "desc": "Villa ve tesis havuzları için berrak, dengeli havuz suyu dolumu." },
-      { "icon": "construction", "title": "İnşaat Suyu", "desc": "İnşaat ve yapı işleriniz için 1-25 ton kapasiteli su tedariki." },
-      { "icon": "site", "title": "Şantiye Suyu", "desc": "Şantiyeleriniz için kesintisiz ve programlı su dağıtımı." },
-      { "icon": "hotel", "title": "Otel & Tesis Suyu", "desc": "Oteller ve toplu tesisler için yüksek kapasiteli teslimat." }
+      {
+        "icon": "use",
+        "title": "Kullanma Suyu",
+        "desc": "Su kesintilerine karşı depolarınızı hızla dolduran kullanım suyu."
+      },
+      {
+        "icon": "pool",
+        "title": "Havuz Suyu",
+        "desc": "Villa ve tesis havuzları için berrak, dengeli havuz suyu dolumu."
+      },
+      {
+        "icon": "construction",
+        "title": "İnşaat Suyu",
+        "desc": "İnşaat ve yapı işleriniz için 1-25 ton kapasiteli su tedariki."
+      },
+      {
+        "icon": "site",
+        "title": "Şantiye Suyu",
+        "desc": "Şantiyeleriniz için kesintisiz ve programlı su dağıtımı."
+      },
+      {
+        "icon": "Hotel",
+        "title": "Otel & Tesis Suyu",
+        "desc": "Oteller ve toplu tesisler için yüksek kapasiteli teslimat."
+      }
     ]
   },
   "steps": {
     "eyebrow": "NASIL ÇALIŞIR",
     "title": "3 adımda su siparişi",
     "items": [
-      { "title": "Sipariş Oluşturun", "desc": "Sipariş formundan su türü, miktar ve bölgeyi seçin." },
-      { "title": "WhatsApp'tan Onaylayın", "desc": "Hazırlanan mesajı tek dokunuşla bize iletin." },
-      { "title": "Kapınıza Gelsin", "desc": "Ekibimiz en kısa sürede adresinizde." }
+      {
+        "title": "Sipariş Oluşturun",
+        "desc": "Sipariş formundan su türü, miktar ve bölgeyi seçin."
+      },
+      {
+        "title": "WhatsApp'tan Onaylayın",
+        "desc": "Hazırlanan mesajı tek dokunuşla bize iletin."
+      },
+      {
+        "title": "Kapınıza Gelsin",
+        "desc": "Ekibimiz en kısa sürede adresinizde."
+      }
     ]
   },
   "regions": {
@@ -54,21 +92,70 @@
     "title": "Bodrum genelinde hizmetinizdeyiz",
     "subtitle": "Aşağıdaki bölgelerin tamamına düzenli ve hızlı dağıtım yapıyoruz.",
     "items": [
-      { "name": "Merkez", "streets": [] },
-      { "name": "Konacık", "streets": [] },
-      { "name": "Ortakent", "streets": [] },
-      { "name": "Bitez", "streets": [] },
-      { "name": "Gümbet", "streets": [] },
-      { "name": "Torba", "streets": [] },
-      { "name": "Türkbükü", "streets": [] },
-      { "name": "Göltürkbükü", "streets": [] },
-      { "name": "Yalıkavak", "streets": [] },
-      { "name": "Gündoğan", "streets": [] },
-      { "name": "Turgutreis", "streets": ["Atatürk Caddesi", "Cumhuriyet Caddesi", "İnönü Caddesi"] },
-      { "name": "Akyarlar", "streets": [] },
-      { "name": "Güvercinlik", "streets": [] },
-      { "name": "Mumcular", "streets": [] },
-      { "name": "Karabağ", "streets": [] }
+      {
+        "name": "Merkez",
+        "streets": []
+      },
+      {
+        "name": "Konacık",
+        "streets": []
+      },
+      {
+        "name": "Ortakent",
+        "streets": []
+      },
+      {
+        "name": "Bitez",
+        "streets": []
+      },
+      {
+        "name": "Gümbet",
+        "streets": []
+      },
+      {
+        "name": "Torba",
+        "streets": []
+      },
+      {
+        "name": "Türkbükü",
+        "streets": []
+      },
+      {
+        "name": "Göltürkbükü",
+        "streets": []
+      },
+      {
+        "name": "Yalıkavak",
+        "streets": []
+      },
+      {
+        "name": "Gündoğan",
+        "streets": []
+      },
+      {
+        "name": "Turgutreis",
+        "streets": [
+          "Atatürk Caddesi",
+          "Cumhuriyet Caddesi",
+          "İnönü Caddesi"
+        ]
+      },
+      {
+        "name": "Akyarlar",
+        "streets": []
+      },
+      {
+        "name": "Güvercinlik",
+        "streets": []
+      },
+      {
+        "name": "Mumcular",
+        "streets": []
+      },
+      {
+        "name": "Karabağ",
+        "streets": []
+      }
     ]
   },
   "quality": {
@@ -95,10 +182,22 @@
       "Deneyimli ve güler yüzlü ekip"
     ],
     "badges": [
-      { "value": "25+", "label": "Yıl Deneyim" },
-      { "value": "7/24", "label": "Hizmet" },
-      { "value": "%100", "label": "Hijyen" },
-      { "value": "16", "label": "Bölge" }
+      {
+        "value": "5+",
+        "label": "Yıl Deneyim"
+      },
+      {
+        "value": "7/24",
+        "label": "Hizmet"
+      },
+      {
+        "value": "%100",
+        "label": "Hijyen"
+      },
+      {
+        "value": "16",
+        "label": "Bölge"
+      }
     ]
   },
   "fleet": {
@@ -106,20 +205,50 @@
     "title": "Her ihtiyaca uygun kapasite",
     "subtitle": "Farklı tonajlardaki paslanmaz tankerlerimizle küçük-büyük her siparişe çözüm.",
     "items": [
-      { "cap": "6", "unit": "ton", "desc": "Ev ve iş yeri depoları.", "img": "assets/img/arac1.jpeg" },
-      { "cap": "24", "unit": "ton", "desc": "Havuz ve toplu tesisler.", "img": "assets/img/arac2.jpeg" },
-      { "cap": "25", "unit": "ton", "desc": "İnşaat ve büyük ölçek.", "img": "assets/img/arac3.jpeg" }
+      {
+        "cap": "6",
+        "unit": "ton",
+        "desc": "Ev ve iş yeri depoları.",
+        "img": "assets/img/arac1.jpeg"
+      },
+      {
+        "cap": "24",
+        "unit": "ton",
+        "desc": "Havuz ve toplu tesisler.",
+        "img": "assets/img/arac2.jpeg"
+      },
+      {
+        "cap": "25",
+        "unit": "ton",
+        "desc": "İnşaat ve büyük ölçek.",
+        "img": "assets/img/arac3.jpeg"
+      }
     ]
   },
   "faq": {
     "eyebrow": "SIKÇA SORULAN SORULAR",
     "title": "Aklınıza takılanlar",
     "items": [
-      { "q": "Ne kadar sürede teslimat yapıyorsunuz?", "a": "Bölgenize ve yoğunluğa göre siparişinizi en kısa sürede adresinize ulaştırıyoruz." },
-      { "q": "Hafta sonu ve gece hizmet veriyor musunuz?", "a": "Evet, 7 gün 24 saat kesintisiz hizmet veriyoruz." },
-      { "q": "Tankerleriniz hijyenik mi?", "a": "Tüm araçlarımız paslanmaz malzemeden olup periyodik olarak dezenfekte edilir." },
-      { "q": "Suyunuz analizli mi?", "a": "Evet, suyumuz akredite laboratuvarlarda düzenli analiz edilir; güncel raporu talep üzerine paylaşırız." },
-      { "q": "Ödeme nasıl yapılıyor?", "a": "Ödeme seçeneklerimiz için lütfen bizimle iletişime geçin." }
+      {
+        "q": "Ne kadar sürede teslimat yapıyorsunuz?",
+        "a": "Bölgenize ve yoğunluğa göre siparişinizi en kısa sürede adresinize ulaştırıyoruz."
+      },
+      {
+        "q": "Hafta sonu ve gece hizmet veriyor musunuz?",
+        "a": "Evet, 7 gün 24 saat kesintisiz hizmet veriyoruz."
+      },
+      {
+        "q": "Tankerleriniz hijyenik mi?",
+        "a": "Tüm araçlarımız paslanmaz malzemeden olup periyodik olarak dezenfekte edilir."
+      },
+      {
+        "q": "Suyunuz analizli mi?",
+        "a": "Evet, suyumuz akredite laboratuvarlarda düzenli analiz edilir; güncel raporu talep üzerine paylaşırız."
+      },
+      {
+        "q": "Ödeme nasıl yapılıyor?",
+        "a": "Ödeme seçeneklerimiz için lütfen bizimle iletişime geçin."
+      }
     ]
   },
   "contactSection": {
@@ -130,9 +259,19 @@
   "order": {
     "title": "Hızlı Sipariş",
     "subtitle": "Bilgileri seçin, WhatsApp üzerinden iletelim.",
-    "waterTypes": ["Kullanma Suyu", "Havuz Suyu", "İnşaat Suyu", "Şantiye Suyu", "Otel & Tesis Suyu"],
+    "waterTypes": [
+      "Kullanma Suyu",
+      "Havuz Suyu",
+      "İnşaat Suyu",
+      "Şantiye Suyu",
+      "Otel & Tesis Suyu"
+    ],
     "maxQuantity": 20,
-    "extraQuantities": ["20+", "50+", "100+"],
+    "extraQuantities": [
+      "20+",
+      "50+",
+      "100+"
+    ],
     "allowCustomQuantity": true,
     "unitLabel": "ton",
     "messageIntro": "Merhaba, Peksu'dan su siparişi vermek istiyorum."
