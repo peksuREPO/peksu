@@ -52,7 +52,23 @@
     "eyebrow": "HİZMET BÖLGELERİ",
     "title": "Bodrum genelinde hizmetinizdeyiz",
     "subtitle": "Aşağıdaki bölgelerin tamamına düzenli ve hızlı dağıtım yapıyoruz.",
-    "items": ["Merkez", "Konacık", "Ortakent", "Bitez", "Gümbet", "Torba", "Türkbükü", "Göltürkbükü", "Yalıkavak", "Gündoğan", "Turgutreis", "Akyarlar", "Güvercinlik", "Mumcular", "Bodrum", "Karabağ"]
+    "items": [
+      { "name": "Merkez", "streets": [] },
+      { "name": "Konacık", "streets": [] },
+      { "name": "Ortakent", "streets": [] },
+      { "name": "Bitez", "streets": [] },
+      { "name": "Gümbet", "streets": [] },
+      { "name": "Torba", "streets": [] },
+      { "name": "Türkbükü", "streets": [] },
+      { "name": "Göltürkbükü", "streets": [] },
+      { "name": "Yalıkavak", "streets": [] },
+      { "name": "Gündoğan", "streets": [] },
+      { "name": "Turgutreis", "streets": ["Atatürk Caddesi", "Cumhuriyet Caddesi", "İnönü Caddesi"] },
+      { "name": "Akyarlar", "streets": [] },
+      { "name": "Güvercinlik", "streets": [] },
+      { "name": "Mumcular", "streets": [] },
+      { "name": "Karabağ", "streets": [] }
+    ]
   },
   "quality": {
     "eyebrow": "SU KALİTESİ VE ANALİZ",

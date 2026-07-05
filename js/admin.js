@@ -60,7 +60,6 @@
     'faq.items':       { add:'Soru Ekle', fields:[{k:'q',l:'Soru'},{k:'a',l:'Cevap',type:'area'}] }
   };
   var strArrays = {
-    'regions.items':   { add:'Bölge Ekle', ph:'Bölge adı', wide:false },
     'about.features':  { add:'Özellik Ekle', ph:'Özellik metni', wide:true },
     'quality.points':  { add:'Madde Ekle', ph:'Analiz maddesi', wide:true },
     'order.waterTypes':{ add:'Su Türü Ekle', ph:'Kullanma Suyu', wide:false }
@@ -104,9 +103,34 @@
       '<button type="button" class="btn btn-outline btn-sm rep-add" data-add="'+p+'">+ '+escH(cfg.add)+'</button>';
   }
   function renderArrayInner(p){
+    if(p==='regions.items'){ renderRegionsInner(); return; }
     var el=document.getElementById('cont-'+p);
     if(el) el.innerHTML=objArrays[p]?objItems(p):strItems(p);
   }
+
+  /* Bölgeler: mahalle + sokak kaskad editörü */
+  function regionsItems(){
+    var arr=getPath(state,'regions.items')||[];
+    return arr.map(function(r,i){
+      var name=typeof r==='string'?r:(r.name||'');
+      var streets=(r&&typeof r==='object'&&r.streets)?r.streets:[];
+      var chips=streets.map(function(s,j){
+        return '<span class="chip"><input data-path="regions.items.'+i+'.streets.'+j+'" value="'+escA(s)+'" placeholder="Sokak/Cadde"><button type="button" data-delstreet="'+i+'|'+j+'">×</button></span>';
+      }).join('');
+      return '<div class="rep-item"><div class="rep-head"><span class="num">'+(i+1)+'</span><span class="drag">☰</span>'+
+        '<button type="button" class="btn btn-danger btn-sm" data-del="regions.items|'+i+'">Sil</button></div>'+
+        '<div class="field"><label>Mahalle Adı</label><input data-path="regions.items.'+i+'.name" value="'+escA(name)+'" placeholder="Mahalle"></div>'+
+        '<label style="font-weight:700;font-size:.82rem;color:var(--deep);display:block;margin-bottom:6px">Sokaklar / Caddeler <span style="font-weight:500;color:var(--muted)">(boşsa müşteri elle yazar)</span></label>'+
+        '<div class="chips" id="cont-streets-'+i+'">'+chips+'</div>'+
+        '<button type="button" class="btn btn-outline btn-sm" data-addstreet="'+i+'" style="margin-top:8px">+ Sokak Ekle</button></div>';
+    }).join('');
+  }
+  function regionsEditor(){
+    return '<label class="field" style="font-weight:700">Mahalleler ve Sokaklar</label>'+
+      '<div id="cont-regions.items">'+regionsItems()+'</div>'+
+      '<button type="button" class="btn btn-outline btn-sm rep-add" data-add="regions.items">+ Mahalle Ekle</button>';
+  }
+  function renderRegionsInner(){ var el=document.getElementById('cont-regions.items'); if(el) el.innerHTML=regionsItems(); }
 
   function panel(title,body,collapsed){
     return '<section class="panel'+(collapsed?' collapsed':'')+'"><div class="panel-head" data-toggle><h2>'+escH(title)+
@@ -171,7 +195,7 @@
         inp('steps.eyebrow','Üst etiket')+inp('steps.title','Başlık')+arrayEditor('steps.items')) +
       panel('📍 Hizmet Bölgeleri',
         inp('regions.eyebrow','Üst etiket')+inp('regions.title','Başlık')+area('regions.subtitle','Alt açıklama')+
-        arrayEditor('regions.items')) +
+        regionsEditor()) +
       panel('🧪 Su Kalitesi & Analiz',
         inp('quality.eyebrow','Üst etiket')+inp('quality.title','Başlık')+area('quality.text','Metin')+
         '<label class="field" style="font-weight:700">Maddeler</label>'+arrayEditor('quality.points')+
@@ -206,9 +230,16 @@
       if(t){ t.parentElement.classList.toggle('collapsed'); return; }
       var add=e.target.closest('[data-add]');
       if(add){ var p=add.getAttribute('data-add'); var arr=getPath(state,p)||[];
-        if(objArrays[p]){ var o={}; objArrays[p].fields.forEach(function(fl){o[fl.k]='';}); arr.push(o); }
+        if(p==='regions.items'){ arr.push({name:'',streets:[]}); }
+        else if(objArrays[p]){ var o={}; objArrays[p].fields.forEach(function(fl){o[fl.k]='';}); arr.push(o); }
         else { arr.push(''); }
         setPath(state,p,arr); renderArrayInner(p); return; }
+      var addSt=e.target.closest('[data-addstreet]');
+      if(addSt){ var ri=+addSt.getAttribute('data-addstreet'); var it=getPath(state,'regions.items.'+ri);
+        if(it){ if(!Array.isArray(it.streets)) it.streets=[]; it.streets.push(''); renderRegionsInner(); } return; }
+      var delSt=e.target.closest('[data-delstreet]');
+      if(delSt){ var sp=delSt.getAttribute('data-delstreet').split('|'); var it2=getPath(state,'regions.items.'+sp[0]);
+        if(it2&&it2.streets){ it2.streets.splice(+sp[1],1); renderRegionsInner(); } return; }
       var del=e.target.closest('[data-del]');
       if(del){ var parts=del.getAttribute('data-del').split('|'); var pp=parts[0]; var idx=+parts[1];
         var a=getPath(state,pp); a.splice(idx,1); renderArrayInner(pp); return; }
