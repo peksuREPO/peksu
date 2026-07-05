@@ -6,6 +6,14 @@
   <title>Peksu | Temiz Su Dağıtım Hizmeti</title>
   <meta name="description" content="Peksu — Bodrum genelinde güvenilir, temiz ve kesintisiz su dağıtım hizmeti. Bakanlık standartlarında analizli su, 7/24 sipariş." />
   <meta name="theme-color" content="#062a36" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2306b6d4' d='M12 2S5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-13-7-13Z'/%3E%3C/svg%3E" />
+  <!-- Sosyal paylaşım (Open Graph / Twitter) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Peksu | Bodrum Su Dağıtım Hizmeti" />
+  <meta property="og:description" content="Bodrum genelinde 7/24 temiz, kesintisiz su dağıtımı. Kullanma, havuz, inşaat, şantiye ve otel suyu." />
+  <meta property="og:image" content="https://peksurepo.github.io/peksu/assets/img/arac1.jpeg" />
+  <meta property="og:url" content="https://peksurepo.github.io/peksu/" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -266,7 +274,7 @@
 
       <div class="modal-field">
         <label>Su Türü</label>
-        <div class="opt-row" id="optWaterType"></div>
+        <div class="opt-grid" id="optWaterType"></div>
       </div>
       <div class="modal-field">
         <label>Miktar (<span data-field="order.unitLabel">ton</span>)</label>
@@ -278,16 +286,8 @@
         <select id="optRegion"></select>
       </div>
       <div class="modal-field">
-        <label>Sokak / Cadde</label>
-        <select id="optStreetSelect"></select>
-        <input id="optStreetText" type="text" placeholder="Sokak / Cadde adı" />
-      </div>
-      <div class="modal-field">
-        <label>Bina No / Daire No</label>
-        <div class="grid2mini">
-          <input id="optBuildingNo" type="text" inputmode="numeric" placeholder="Bina No" />
-          <input id="optDoorNo" type="text" placeholder="Daire No (isteğe bağlı)" />
-        </div>
+        <label>Açık Adres</label>
+        <textarea id="optAddress" placeholder="Cadde / sokak, bina ve daire no dahil açık adresiniz"></textarea>
       </div>
       <div class="modal-field">
         <label>Not (isteğe bağlı)</label>

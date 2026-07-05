@@ -124,44 +124,14 @@
       var n = regionName(r);
       return '<option value="' + esc(n) + '">' + esc(n) + '</option>';
     }).join('');
-    updateStreetField();
-  }
-
-  function currentRegion() {
-    var name = (document.getElementById('optRegion') || {}).value;
-    var items = get(data, 'regions.items') || [];
-    for (var i = 0; i < items.length; i++) { if (regionName(items[i]) === name) return items[i]; }
-    return null;
-  }
-  // Seçilen mahalleye göre sokak alanını doldur (varsa dropdown, yoksa serbest metin)
-  function updateStreetField() {
-    var selEl = document.getElementById('optStreetSelect');
-    var txtEl = document.getElementById('optStreetText');
-    if (!selEl || !txtEl) return;
-    var streets = regionStreets(currentRegion());
-    if (streets.length) {
-      selEl.innerHTML = '<option value="">Sokak/Cadde seçin</option>' +
-        streets.map(function (s) { return '<option value="' + esc(s) + '">' + esc(s) + '</option>'; }).join('');
-      selEl.style.display = ''; txtEl.style.display = 'none'; txtEl.value = '';
-    } else {
-      selEl.style.display = 'none'; selEl.innerHTML = '';
-      txtEl.style.display = '';
-    }
-  }
-  function streetValue() {
-    var selEl = document.getElementById('optStreetSelect');
-    var txtEl = document.getElementById('optStreetText');
-    if (selEl && selEl.style.display !== 'none' && selEl.value) return selEl.value;
-    if (txtEl && txtEl.style.display !== 'none') return txtEl.value.trim();
-    return '';
   }
 
   function openM(id) { var m = document.getElementById(id); if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); } }
   function closeM() { document.querySelectorAll('.modal.open').forEach(function (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }); }
   function contactWhatsApp() {
     var msg = get(data, 'contact.contactMessage') || 'Merhaba, bilgi almak istiyorum.';
-    window.open('https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(msg), '_blank');
     closeM();
+    goWhatsApp(msg);
   }
   function qtyValue() {
     var q = document.getElementById('optQty');
@@ -174,11 +144,9 @@
 
   function sendOrder() {
     var o = (data && data.order) || {};
-    var note = (document.getElementById('optNote') || {}).value || '';
+    var note = ((document.getElementById('optNote') || {}).value || '').trim();
     var region = (document.getElementById('optRegion') || {}).value || '';
-    var street = streetValue();
-    var bno = ((document.getElementById('optBuildingNo') || {}).value || '').trim();
-    var dno = ((document.getElementById('optDoorNo') || {}).value || '').trim();
+    var address = ((document.getElementById('optAddress') || {}).value || '').trim();
     var unit = o.unitLabel || 'ton';
     var lines = [
       o.messageIntro || 'Merhaba, su siparişi vermek istiyorum.',
@@ -187,18 +155,18 @@
       'Miktar: ' + (qtyValue() || '-') + ' ' + unit,
       'Bölge: ' + (region || '-')
     ];
-    if (street) lines.push('Sokak/Cadde: ' + street);
-    if (bno) lines.push('Bina No: ' + bno);
-    if (dno) lines.push('Daire No: ' + dno);
-    if (note.trim()) lines.push('Not: ' + note.trim());
-    var url = 'https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(lines.join('\n'));
-    window.open(url, '_blank');
+    if (address) lines.push('Açık Adres: ' + address);
+    if (note) lines.push('Not: ' + note);
+    goWhatsApp(lines.join('\n'));
     closeM();
+  }
+  function goWhatsApp(text) {
+    window.location.href = 'https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(text);
   }
 
   function requestReport() {
     var msg = get(data, 'quality.requestMessage') || 'Merhaba, güncel su analiz raporunu talep etmek istiyorum.';
-    window.open('https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(msg), '_blank');
+    goWhatsApp(msg);
   }
 
   /* ---------- Etkileşimler ---------- */
@@ -218,8 +186,6 @@
       });
       var send = document.getElementById('orderSend');
       if (send) send.addEventListener('click', sendOrder);
-      var regSel = document.getElementById('optRegion');
-      if (regSel) regSel.addEventListener('change', updateStreetField);
       var qtySel = document.getElementById('optQty');
       if (qtySel) qtySel.addEventListener('change', function () {
         var c = document.getElementById('optQtyCustom');
