@@ -50,17 +50,20 @@
   });
 
   /* ---------- dizi editör tanımları ---------- */
+  var ICON_KEYS = 'drink, use, pool, construction, site, hotel, droplet';
   var objArrays = {
-    'hero.stats':      { add:'İstatistik Ekle', fields:[{k:'value',l:'Değer',ph:'25+'},{k:'label',l:'Etiket',ph:'Yıllık Deneyim'}] },
-    'services.items':  { add:'Hizmet Ekle', fields:[{k:'icon',l:'Simge (emoji)',ph:'💧'},{k:'title',l:'Başlık',ph:'İçme Suyu'},{k:'desc',l:'Açıklama',type:'area'}] },
-    'steps.items':     { add:'Adım Ekle', fields:[{k:'title',l:'Başlık',ph:'Arayın'},{k:'desc',l:'Açıklama',type:'area'}] },
+    'heroStats':       { add:'İstatistik Ekle', fields:[{k:'value',l:'Değer',ph:'25+'},{k:'label',l:'Etiket',ph:'Yıllık Deneyim'}] },
+    'services.items':  { add:'Hizmet Ekle', fields:[{k:'icon',l:'İkon anahtarı ('+ICON_KEYS+')',ph:'drink'},{k:'title',l:'Başlık',ph:'İçme Suyu'},{k:'desc',l:'Açıklama',type:'area'}] },
+    'steps.items':     { add:'Adım Ekle', fields:[{k:'title',l:'Başlık',ph:'Sipariş Oluşturun'},{k:'desc',l:'Açıklama',type:'area'}] },
     'about.badges':    { add:'Rozet Ekle', fields:[{k:'value',l:'Değer',ph:'25+'},{k:'label',l:'Etiket',ph:'Yıl Deneyim'}] },
     'fleet.items':     { add:'Araç Ekle', fields:[{k:'cap',l:'Kapasite',ph:'6'},{k:'unit',l:'Birim',ph:'ton'},{k:'desc',l:'Açıklama',type:'area'}] },
     'faq.items':       { add:'Soru Ekle', fields:[{k:'q',l:'Soru'},{k:'a',l:'Cevap',type:'area'}] }
   };
   var strArrays = {
     'regions.items':   { add:'Bölge Ekle', ph:'Bölge adı', wide:false },
-    'about.features':  { add:'Özellik Ekle', ph:'Özellik metni', wide:true }
+    'about.features':  { add:'Özellik Ekle', ph:'Özellik metni', wide:true },
+    'quality.points':  { add:'Madde Ekle', ph:'Analiz maddesi', wide:true },
+    'order.waterTypes':{ add:'Su Türü Ekle', ph:'Kullanma Suyu', wide:false }
   };
 
   /* ---------- alan üreticiler ---------- */
@@ -148,7 +151,7 @@
         '<div class="grid3">'+inp('hero.titleLead','Başlık 1. kısım')+inp('hero.titleHighlight','Vurgulu kelime')+inp('hero.titleTail','Başlık son kısım')+'</div>'+
         area('hero.lead','Açıklama') +
         '<div class="grid2">'+inp('hero.primaryBtn','Ana buton')+inp('hero.secondaryBtn','İkincil buton')+'</div>'+
-        '<label class="field" style="font-weight:700">İstatistikler</label>'+arrayEditor('hero.stats')) +
+        '<label class="field" style="font-weight:700">İstatistikler</label>'+arrayEditor('heroStats')) +
       panel('📞 İletişim Bilgileri',
         '<div class="grid2">'+
           inp('contact.phoneDisplay','Telefon (görünen)','0 (5xx) xxx xx xx') +
@@ -156,9 +159,11 @@
         '</div><div class="grid2">'+
           inp('contact.whatsapp','WhatsApp no (90 ile)','905xxxxxxxxx') +
           inp('contact.email','E-posta','info@peksu.com') +
+        '</div><div class="grid2">'+
+          inp('contact.instagram','Instagram adresi','https://instagram.com/peksu') +
+          inp('contact.hours','Çalışma Saatleri','7/24 Açık') +
         '</div>'+
-        inp('contact.address','Adres') +
-        inp('contact.hours','Çalışma Saatleri','7/24 Açık')) +
+        inp('contact.address','Adres')) +
       panel('💧 Hizmetler',
         inp('services.eyebrow','Üst etiket')+inp('services.title','Başlık')+area('services.subtitle','Alt açıklama')+
         arrayEditor('services.items')) +
@@ -167,6 +172,15 @@
       panel('📍 Hizmet Bölgeleri',
         inp('regions.eyebrow','Üst etiket')+inp('regions.title','Başlık')+area('regions.subtitle','Alt açıklama')+
         arrayEditor('regions.items')) +
+      panel('🧪 Su Kalitesi & Analiz',
+        inp('quality.eyebrow','Üst etiket')+inp('quality.title','Başlık')+area('quality.text','Metin')+
+        '<label class="field" style="font-weight:700">Maddeler</label>'+arrayEditor('quality.points')+
+        '<div class="grid2" style="margin-top:14px">'+inp('quality.ctaLabel','Buton yazısı','Analiz Raporunu Talep Et')+inp('quality.requestMessage','Talep WhatsApp mesajı')+'</div>') +
+      panel('🛒 Sipariş Formu (WhatsApp popup)',
+        '<div class="grid2">'+inp('order.title','Başlık','Hızlı Sipariş')+inp('order.subtitle','Alt açıklama')+'</div>'+
+        '<div class="grid2">'+inp('order.maxQuantity','Maksimum miktar','20')+inp('order.unitLabel','Birim','ton')+'</div>'+
+        inp('order.messageIntro','Mesaj giriş cümlesi',"Merhaba, Peksu'dan su siparişi vermek istiyorum.")+
+        '<label class="field" style="font-weight:700">Su Türleri</label>'+arrayEditor('order.waterTypes')) +
       panel('ℹ Hakkımızda',
         inp('about.eyebrow','Üst etiket')+inp('about.title','Başlık')+area('about.text','Metin')+
         '<label class="field" style="font-weight:700">Özellikler</label>'+arrayEditor('about.features')+
