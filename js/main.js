@@ -57,6 +57,15 @@
       });
     });
 
+    // Logo (varsa görsel, yoksa metin marka)
+    var logo = get(d, 'brand.logo'), logoEl = document.getElementById('brandLogo');
+    if (logo && logoEl) {
+      logoEl.src = logo; logoEl.hidden = false;
+      var dr = document.getElementById('brandDrop'), tx = document.getElementById('brandText');
+      if (dr) dr.style.display = 'none';
+      if (tx) tx.style.display = 'none';
+    }
+
     fill('heroStats', d.heroStats, function (s) {
       return '<li><strong>' + esc(s.value) + '</strong><span>' + esc(s.label) + '</span></li>';
     });
@@ -74,7 +83,9 @@
       return '<div class="badge-card"><strong>' + esc(b.value) + '</strong><span>' + esc(b.label) + '</span></div>';
     });
     fill('fleetGrid', get(d, 'fleet.items'), function (f) {
-      return '<article class="card fleet"><span class="fleet-cap">' + esc(f.cap) + '<small>' + esc(f.unit) + '</small></span><p>' + esc(f.desc) + '</p></article>';
+      var photo = f.img ? '<div class="fleet-photo"><img src="' + esc(f.img) + '" alt="' + esc(f.cap) + ' ' + esc(f.unit) + ' su tankeri" loading="lazy"></div>' : '';
+      return '<article class="card fleet' + (f.img ? ' has-photo' : '') + '">' + photo +
+        '<div class="fleet-body"><span class="fleet-cap">' + esc(f.cap) + '<small>' + esc(f.unit) + '</small></span><p>' + esc(f.desc) + '</p></div></article>';
     });
     fill('faqList', get(d, 'faq.items'), function (f) {
       return '<details><summary>' + esc(f.q) + '</summary><p>' + esc(f.a) + '</p></details>';
@@ -96,13 +107,16 @@
     }).join('');
     sel.type = (o.waterTypes && o.waterTypes[0]) || '';
 
-    // Miktar 1..max
-    var max = o.maxQuantity || 20;
+    // Miktar: 1..max + ekstra aralıklar (20+, 50+...) + manuel giriş
+    var max = parseInt(o.maxQuantity, 10) || 20;
     var qty = document.getElementById('optQty');
-    var qhtml = '';
-    for (var n = 1; n <= max; n++) qhtml += '<button type="button" class="opt' + (n === 1 ? ' sel' : '') + '" data-qty="' + n + '">' + n + '</button>';
-    if (qty) qty.innerHTML = qhtml;
-    sel.qty = 1;
+    var opts = '';
+    for (var n = 1; n <= max; n++) opts += '<option value="' + n + '">' + n + '</option>';
+    (o.extraQuantities || []).forEach(function (x) { opts += '<option value="' + esc(x) + '">' + esc(x) + '</option>'; });
+    if (o.allowCustomQuantity !== false) opts += '<option value="__custom__">Diğer (elle gir)</option>';
+    if (qty) qty.innerHTML = opts;
+    var cust = document.getElementById('optQtyCustom');
+    if (cust) { cust.hidden = true; cust.value = ''; }
 
     // Bölgeler
     var reg = document.getElementById('optRegion');
@@ -142,8 +156,19 @@
     return '';
   }
 
-  function openModal() { var m = document.getElementById('orderModal'); if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); } }
-  function closeModal() { var m = document.getElementById('orderModal'); if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); } }
+  function openM(id) { var m = document.getElementById(id); if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); } }
+  function closeM() { document.querySelectorAll('.modal.open').forEach(function (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }); }
+  function contactWhatsApp() {
+    var msg = get(data, 'contact.contactMessage') || 'Merhaba, bilgi almak istiyorum.';
+    window.open('https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(msg), '_blank');
+    closeM();
+  }
+  function qtyValue() {
+    var q = document.getElementById('optQty');
+    var v = q ? q.value : '';
+    if (v === '__custom__') { var c = document.getElementById('optQtyCustom'); return (c && c.value) ? c.value.trim() : ''; }
+    return v;
+  }
 
   function waNumber() { return String(get(data, 'contact.whatsapp') || '').replace(/[^0-9]/g, ''); }
 
@@ -159,7 +184,7 @@
       o.messageIntro || 'Merhaba, su siparişi vermek istiyorum.',
       '',
       'Su Türü: ' + (sel.type || '-'),
-      'Miktar: ' + (sel.qty || '-') + ' ' + unit,
+      'Miktar: ' + (qtyValue() || '-') + ' ' + unit,
       'Bölge: ' + (region || '-')
     ];
     if (street) lines.push('Sokak/Cadde: ' + street);
@@ -168,7 +193,7 @@
     if (note.trim()) lines.push('Not: ' + note.trim());
     var url = 'https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(lines.join('\n'));
     window.open(url, '_blank');
-    closeModal();
+    closeM();
   }
 
   function requestReport() {
@@ -183,19 +208,24 @@
       bound = true;
       // Global tıklama yakalama (modal aç/kapa, sipariş, rapor)
       document.addEventListener('click', function (e) {
-        if (e.target.closest('[data-order]')) { e.preventDefault(); openModal(); return; }
+        if (e.target.closest('[data-choice]')) { e.preventDefault(); openM('choiceModal'); return; }
+        if (e.target.closest('[data-order]')) { e.preventDefault(); closeM(); openM('orderModal'); return; }
+        if (e.target.closest('[data-contact]')) { e.preventDefault(); contactWhatsApp(); return; }
         if (e.target.closest('[data-request]')) { e.preventDefault(); requestReport(); return; }
-        if (e.target.closest('[data-close]')) { closeModal(); return; }
+        if (e.target.closest('[data-close]')) { closeM(); return; }
         var typeBtn = e.target.closest('[data-type]');
         if (typeBtn) { sel.type = typeBtn.getAttribute('data-type'); markSel(typeBtn); return; }
-        var qtyBtn = e.target.closest('[data-qty]');
-        if (qtyBtn) { sel.qty = +qtyBtn.getAttribute('data-qty'); markSel(qtyBtn); return; }
       });
       var send = document.getElementById('orderSend');
       if (send) send.addEventListener('click', sendOrder);
       var regSel = document.getElementById('optRegion');
       if (regSel) regSel.addEventListener('change', updateStreetField);
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+      var qtySel = document.getElementById('optQty');
+      if (qtySel) qtySel.addEventListener('change', function () {
+        var c = document.getElementById('optQtyCustom');
+        if (c) { var custom = qtySel.value === '__custom__'; c.hidden = !custom; if (custom) c.focus(); else c.value = ''; }
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeM(); });
 
       // Mobil menü
       var toggle = document.getElementById('navToggle');

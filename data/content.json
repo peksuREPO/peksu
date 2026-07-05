@@ -1,7 +1,8 @@
 {
   "brand": {
     "name": "Peksu",
-    "slogan": "Temiz su, kesintisiz hizmet."
+    "slogan": "Temiz su, kesintisiz hizmet.",
+    "logo": "assets/img/logo.jpeg"
   },
   "hero": {
     "eyebrow": "BODRUM GENELİ 7/24 SU DAĞITIMI",
@@ -24,14 +25,14 @@
     "instagram": "https://instagram.com/",
     "email": "info@peksu.com",
     "address": "Adres bilgisi buraya",
-    "hours": "7/24 Açık"
+    "hours": "7/24 Açık",
+    "contactMessage": "Merhaba, Peksu hakkında bilgi almak istiyorum."
   },
   "services": {
     "eyebrow": "HİZMETLERİMİZ",
     "title": "İhtiyacınıza uygun su çözümleri",
-    "subtitle": "İçme suyundan havuz suyuna, şantiyeden otele kadar her ölçekte su tedariki.",
+    "subtitle": "Kullanma suyundan havuz suyuna, şantiyeden otele kadar her ölçekte su tedariki.",
     "items": [
-      { "icon": "drink", "title": "İçme Suyu", "desc": "Evler ve iş yerleri için hijyenik, içilebilir kalitede temiz su tedariki." },
       { "icon": "use", "title": "Kullanma Suyu", "desc": "Su kesintilerine karşı depolarınızı hızla dolduran kullanım suyu." },
       { "icon": "pool", "title": "Havuz Suyu", "desc": "Villa ve tesis havuzları için berrak, dengeli havuz suyu dolumu." },
       { "icon": "construction", "title": "İnşaat Suyu", "desc": "İnşaat ve yapı işleriniz için 1-25 ton kapasiteli su tedariki." },
@@ -73,7 +74,7 @@
   "quality": {
     "eyebrow": "SU KALİTESİ VE ANALİZ",
     "title": "Bakanlık standartlarında, düzenli analizli su",
-    "text": "Dağıttığımız su, akredite laboratuvarlarda düzenli aralıklarla analiz edilir ve T.C. Sağlık Bakanlığı içme-kullanma suyu standartlarına uygunluğu takip edilir. Şeffaflık ilkemiz gereği güncel analiz sonuçlarımızı talep eden müşterilerimizle paylaşırız.",
+    "text": "Dağıttığımız su, akredite laboratuvarlarda düzenli aralıklarla analiz edilir ve T.C. Sağlık Bakanlığı kullanma suyu standartlarına uygunluğu takip edilir. Şeffaflık ilkemiz gereği güncel analiz sonuçlarımızı talep eden müşterilerimizle paylaşırız.",
     "points": [
       "Akredite laboratuvarlarda düzenli analiz",
       "Sağlık Bakanlığı standartlarına uygunluk",
@@ -105,10 +106,9 @@
     "title": "Her ihtiyaca uygun kapasite",
     "subtitle": "Farklı tonajlardaki paslanmaz tankerlerimizle küçük-büyük her siparişe çözüm.",
     "items": [
-      { "cap": "3", "unit": "ton", "desc": "Küçük teslimatlar için ideal." },
-      { "cap": "6", "unit": "ton", "desc": "Ev ve iş yeri depoları." },
-      { "cap": "24", "unit": "ton", "desc": "Havuz ve toplu tesisler." },
-      { "cap": "25", "unit": "ton", "desc": "İnşaat ve büyük ölçek." }
+      { "cap": "6", "unit": "ton", "desc": "Ev ve iş yeri depoları.", "img": "assets/img/arac1.jpeg" },
+      { "cap": "24", "unit": "ton", "desc": "Havuz ve toplu tesisler.", "img": "assets/img/arac2.jpeg" },
+      { "cap": "25", "unit": "ton", "desc": "İnşaat ve büyük ölçek.", "img": "assets/img/arac3.jpeg" }
     ]
   },
   "faq": {
@@ -130,8 +130,10 @@
   "order": {
     "title": "Hızlı Sipariş",
     "subtitle": "Bilgileri seçin, WhatsApp üzerinden iletelim.",
-    "waterTypes": ["Kullanma Suyu", "İçme Suyu"],
+    "waterTypes": ["Kullanma Suyu", "Havuz Suyu", "İnşaat Suyu", "Şantiye Suyu", "Otel & Tesis Suyu"],
     "maxQuantity": 20,
+    "extraQuantities": ["20+", "50+", "100+"],
+    "allowCustomQuantity": true,
     "unitLabel": "ton",
     "messageIntro": "Merhaba, Peksu'dan su siparişi vermek istiyorum."
   }

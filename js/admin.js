@@ -56,13 +56,14 @@
     'services.items':  { add:'Hizmet Ekle', fields:[{k:'icon',l:'İkon anahtarı ('+ICON_KEYS+')',ph:'drink'},{k:'title',l:'Başlık',ph:'İçme Suyu'},{k:'desc',l:'Açıklama',type:'area'}] },
     'steps.items':     { add:'Adım Ekle', fields:[{k:'title',l:'Başlık',ph:'Sipariş Oluşturun'},{k:'desc',l:'Açıklama',type:'area'}] },
     'about.badges':    { add:'Rozet Ekle', fields:[{k:'value',l:'Değer',ph:'25+'},{k:'label',l:'Etiket',ph:'Yıl Deneyim'}] },
-    'fleet.items':     { add:'Araç Ekle', fields:[{k:'cap',l:'Kapasite',ph:'6'},{k:'unit',l:'Birim',ph:'ton'},{k:'desc',l:'Açıklama',type:'area'}] },
+    'fleet.items':     { add:'Araç Ekle', fields:[{k:'cap',l:'Kapasite',ph:'6'},{k:'unit',l:'Birim',ph:'ton'},{k:'img',l:'Fotoğraf yolu',ph:'assets/img/arac1.jpeg'},{k:'desc',l:'Açıklama',type:'area'}] },
     'faq.items':       { add:'Soru Ekle', fields:[{k:'q',l:'Soru'},{k:'a',l:'Cevap',type:'area'}] }
   };
   var strArrays = {
     'about.features':  { add:'Özellik Ekle', ph:'Özellik metni', wide:true },
     'quality.points':  { add:'Madde Ekle', ph:'Analiz maddesi', wide:true },
-    'order.waterTypes':{ add:'Su Türü Ekle', ph:'Kullanma Suyu', wide:false }
+    'order.waterTypes':{ add:'Su Türü Ekle', ph:'Kullanma Suyu', wide:false },
+    'order.extraQuantities':{ add:'Aralık Ekle', ph:'20+', wide:false }
   };
 
   /* ---------- alan üreticiler ---------- */
@@ -169,7 +170,8 @@
       ghPanel() +
       panel('🏷 Genel',
         inp('brand.name','Firma Adı','Peksu') +
-        inp('brand.slogan','Slogan','Temiz su, kapınıza kadar.')) +
+        inp('brand.slogan','Slogan','Temiz su, kesintisiz hizmet.') +
+        inp('brand.logo','Logo yolu','assets/img/logo.jpeg')) +
       panel('🌊 Hero (üst bölüm)',
         inp('hero.eyebrow','Üst etiket') +
         '<div class="grid3">'+inp('hero.titleLead','Başlık 1. kısım')+inp('hero.titleHighlight','Vurgulu kelime')+inp('hero.titleTail','Başlık son kısım')+'</div>'+
@@ -187,7 +189,8 @@
           inp('contact.instagram','Instagram adresi','https://instagram.com/peksu') +
           inp('contact.hours','Çalışma Saatleri','7/24 Açık') +
         '</div>'+
-        inp('contact.address','Adres')) +
+        inp('contact.address','Adres') +
+        area('contact.contactMessage','WhatsApp "İletişime Geç" otomatik mesajı')) +
       panel('💧 Hizmetler',
         inp('services.eyebrow','Üst etiket')+inp('services.title','Başlık')+area('services.subtitle','Alt açıklama')+
         arrayEditor('services.items')) +
@@ -204,7 +207,8 @@
         '<div class="grid2">'+inp('order.title','Başlık','Hızlı Sipariş')+inp('order.subtitle','Alt açıklama')+'</div>'+
         '<div class="grid2">'+inp('order.maxQuantity','Maksimum miktar','20')+inp('order.unitLabel','Birim','ton')+'</div>'+
         inp('order.messageIntro','Mesaj giriş cümlesi',"Merhaba, Peksu'dan su siparişi vermek istiyorum.")+
-        '<label class="field" style="font-weight:700">Su Türleri</label>'+arrayEditor('order.waterTypes')) +
+        '<label class="field" style="font-weight:700">Su Türleri</label>'+arrayEditor('order.waterTypes')+
+        '<label class="field" style="font-weight:700;margin-top:14px">Ekstra Miktar Aralıkları <span style="font-weight:500;color:var(--muted)">(1-20 sonrası: 20+, 50+...)</span></label>'+arrayEditor('order.extraQuantities')) +
       panel('ℹ Hakkımızda',
         inp('about.eyebrow','Üst etiket')+inp('about.title','Başlık')+area('about.text','Metin')+
         '<label class="field" style="font-weight:700">Özellikler</label>'+arrayEditor('about.features')+

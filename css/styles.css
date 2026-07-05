@@ -65,10 +65,18 @@ ul{list-style:none}
 .btn-lg{padding:1em 1.9em;font-size:1.02rem}
 
 /* İkon buton (tek renk) */
-.icon-btn{width:44px;height:44px;border-radius:var(--radius);display:grid;place-items:center;
-  color:var(--deep);background:#fff;border:1.5px solid var(--line);transition:.16s;flex:none}
+.icon-btn{width:44px;height:44px;border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;
+  color:var(--deep);background:#fff;border:1.5px solid var(--line);transition:.16s;flex:none;
+  padding:0;margin:0;line-height:0;font:inherit;-webkit-appearance:none;appearance:none;cursor:pointer;box-sizing:border-box}
 .icon-btn:hover{border-color:var(--aqua-400);color:var(--aqua-700)}
-.icon-btn svg{width:22px;height:22px}
+.icon-btn svg{width:21px;height:21px;display:block}
+
+/* Marka logosu */
+.brand-logo{height:40px;width:auto;display:block}
+
+/* Hero mobil telefon satırı */
+.hero-phone{display:none;align-items:center;gap:7px;margin:-22px 0 42px;color:#cfeef6;font-weight:600;font-size:.96rem}
+.hero-phone svg{color:var(--aqua-300)}
 
 /* ---------- Header ---------- */
 .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
@@ -198,8 +206,12 @@ ul{list-style:none}
 .badge-card span{font-weight:600;opacity:.85;font-size:.9rem}
 
 /* Filo */
-.fleet{text-align:center}
-.fleet-cap{font-family:var(--font-head);font-weight:800;font-size:2.5rem;color:var(--aqua-700);display:block;line-height:1;margin-bottom:8px}
+.card.fleet{padding:0;overflow:hidden;text-align:center}
+.fleet-photo{width:100%;height:200px;overflow:hidden;background:#dcecf1}
+.fleet-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.card.fleet:hover .fleet-photo img{transform:scale(1.06)}
+.fleet-body{padding:24px 22px 26px}
+.fleet-cap{font-family:var(--font-head);font-weight:800;font-size:2.4rem;color:var(--aqua-700);display:block;line-height:1;margin-bottom:8px}
 .fleet-cap small{font-size:.9rem;font-weight:700;color:var(--muted);margin-left:3px}
 .fleet p{color:var(--muted);font-size:.94rem}
 
@@ -276,6 +288,19 @@ ul{list-style:none}
 .modal-field select:focus,.modal-field textarea:focus,.modal-field input:focus{outline:none;border-color:var(--aqua-400)}
 .modal-field textarea{min-height:70px;resize:vertical}
 .grid2mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Seçim modalı */
+.choice-card{max-width:440px}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.choice-btn{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;padding:24px 16px;
+  border:1.5px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font-family:inherit;transition:.16s}
+.choice-btn:hover{border-color:var(--aqua-400);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.choice-btn .choice-ic{width:54px;height:54px;display:grid;place-items:center;border-radius:12px;background:#ecfeff;color:var(--aqua-700)}
+.choice-btn.primary .choice-ic{background:var(--deep);color:var(--aqua-300)}
+.choice-btn .choice-ic svg{width:26px;height:26px}
+.choice-btn strong{font-family:var(--font-head);font-size:1.05rem;color:var(--ink)}
+.choice-btn small{color:var(--muted);font-size:.82rem}
+@media(max-width:420px){.choice-grid{grid-template-columns:1fr}}
 
 /* Reveal */
 .section .card,.section .step,.region-list li,.badge-card{opacity:0;transform:translateY(16px)}
