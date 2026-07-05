@@ -43,7 +43,7 @@ ul{list-style:none}
 .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 22px}
 .container.narrow{max-width:820px}
 .only-desktop{display:inline-flex}
-.only-mobile{display:none}
+.only-mobile{display:none!important}
 
 /* ---------- Butonlar ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font-weight:700;font-size:.96rem;
@@ -72,15 +72,14 @@ ul{list-style:none}
 .icon-btn svg{width:21px;height:21px;display:block}
 
 /* Marka logosu */
-.brand-logo{height:40px;width:auto;display:block}
+.brand-logo{height:46px;width:auto;display:block}
 
 /* Hero mobil telefon satırı */
 .hero-phone{display:none;align-items:center;gap:7px;margin:-22px 0 42px;color:#cfeef6;font-weight:600;font-size:.96rem}
 .hero-phone svg{color:var(--aqua-300)}
 
 /* ---------- Header ---------- */
-.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
-  backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.site-header{position:sticky;top:0;z-index:50;background:#ffffff;border-bottom:1px solid var(--line)}
 .header-inner{display:flex;align-items:center;gap:18px;height:74px}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-head)}
 .brand-drop{color:var(--aqua-500);width:30px;height:30px;display:grid;place-items:center}
@@ -90,7 +89,8 @@ ul{list-style:none}
 .main-nav{display:flex;gap:2px;margin-left:auto}
 .main-nav .nav-min{display:none}
 .main-nav a{font-weight:600;font-size:.93rem;color:var(--text);padding:.5em .74em;border-radius:8px;transition:.15s}
-.main-nav a:hover{background:var(--aqua-50,#ecfeff);color:var(--aqua-700)}
+.main-nav a:hover{background:#ecfeff;color:var(--aqua-700)}
+.main-nav a.active{background:#ecfeff;color:var(--aqua-700);font-weight:700}
 .header-actions{display:flex;align-items:center;gap:10px}
 .header-actions .btn-call{font-size:.9rem;padding:.7em 1.1em}
 .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:9px;border-radius:8px}
@@ -253,7 +253,13 @@ ul{list-style:none}
 .footer-nav a{color:#bcdde5;font-weight:600;transition:.15s}
 .footer-nav a:hover{color:var(--aqua-300)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.08)}
-.footer-bottom p{text-align:center;padding:16px 0;font-size:.88rem;color:#6f97a1}
+.footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:15px 0}
+.footer-bottom-inner p{font-size:.88rem;color:#6f97a1}
+.powered-by{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#5a828c;transition:color .15s}
+.powered-by strong{color:#9fc6cf;font-weight:700}
+.powered-by:hover{color:var(--aqua-300)}
+.powered-by:hover strong{color:var(--aqua-300)}
+@media(max-width:520px){.footer-bottom-inner{justify-content:center;text-align:center}}
 
 /* Sabit butonlar */
 .floats{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;gap:12px}
@@ -318,7 +324,7 @@ ul{list-style:none}
 }
 @media(max-width:1024px){
   .only-desktop{display:none!important}
-  .only-mobile{display:inline-flex}
+  .only-mobile{display:inline-flex!important}
   .main-nav{position:absolute;top:74px;left:0;right:0;flex-direction:column;gap:2px;background:#fff;padding:12px 18px;
     box-shadow:var(--shadow-md);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.22s;border-bottom:1px solid var(--line)}
   .main-nav.open{transform:none;opacity:1;pointer-events:auto}

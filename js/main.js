@@ -220,6 +220,27 @@
 
     var yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    initScrollSpy();
+  }
+
+  // Bulunulan bölümü nav'da vurgula
+  function initScrollSpy() {
+    if (!('IntersectionObserver' in window)) return;
+    var links = [].slice.call(document.querySelectorAll('.main-nav a[href^="#"]'));
+    var map = {};
+    links.forEach(function (a) { var id = a.getAttribute('href').slice(1); if (document.getElementById(id)) map[id] = a; });
+    var ids = Object.keys(map);
+    if (!ids.length) return;
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove('active'); });
+          if (map[e.target.id]) map[e.target.id].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    ids.forEach(function (id) { spy.observe(document.getElementById(id)); });
   }
 
   function markSel(btn) {

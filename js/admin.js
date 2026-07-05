@@ -262,10 +262,6 @@
     });
 
     document.getElementById('saveBtn').addEventListener('click', saveGitHub);
-    document.getElementById('downloadBtn').addEventListener('click', downloadJSON);
-    document.getElementById('reloadBtn').addEventListener('click', function(){
-      if(confirm('Kaydedilmemiş değişiklikler silinsin ve son kayıtlı içerik yüklensin mi?')) loadContent();
-    });
   }
 
   /* ---------- GitHub işlemleri ---------- */
