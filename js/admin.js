@@ -2,9 +2,9 @@
 (function () {
   'use strict';
 
-  // Varsayılan şifre: peksu2026  (değiştirmek için yeni şifrenin SHA-256'sını buraya yaz)
-  var PASS_HASH = 'a042a9ad533c05e6abaaef55a44c10bd5383d1fba9d38b5592f645076ec5150c';
+  // Panel şifresi koda gömülü DEĞİLDİR; sadece bu tarayıcıda (localStorage) saklanır.
   var LS_CFG = 'peksu_gh_cfg';
+  var LS_PASS = 'peksu_admin_pass';
   var SS_AUTH = 'peksu_auth';
 
   var state = null; // düzenlenen içerik
@@ -36,15 +36,32 @@
   /* ---------- şifre kapısı ---------- */
   var gate=document.getElementById('gate'), app=document.getElementById('app');
   function unlock(){ gate.style.display='none'; app.hidden=false; init(); }
-  if(sessionStorage.getItem(SS_AUTH)==='1'){ unlock(); }
 
-  document.getElementById('gateForm').addEventListener('submit', async function(e){
-    e.preventDefault();
-    var err=document.getElementById('gateErr');
-    var h=await sha256(document.getElementById('gatePass').value);
-    if(h===PASS_HASH){ sessionStorage.setItem(SS_AUTH,'1'); unlock(); }
-    else { err.textContent='Şifre hatalı, tekrar deneyin.'; }
-  });
+  function setupGate(){
+    var firstRun = !localStorage.getItem(LS_PASS);
+    var sub=document.querySelector('.gate-card p');
+    var btn=document.querySelector('#gateForm button[type=submit]');
+    if(firstRun){
+      if(sub) sub.textContent='İlk giriş — panel için bir şifre belirleyin (en az 4 karakter).';
+      if(btn) btn.textContent='Şifre Belirle';
+      document.getElementById('gatePass').setAttribute('autocomplete','new-password');
+    }
+    document.getElementById('gateForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var err=document.getElementById('gateErr');
+      var val=document.getElementById('gatePass').value;
+      if(firstRun){
+        if(val.length<4){ err.textContent='Şifre en az 4 karakter olmalı.'; return; }
+        localStorage.setItem(LS_PASS, await sha256(val));
+        sessionStorage.setItem(SS_AUTH,'1'); unlock(); return;
+      }
+      if((await sha256(val))===localStorage.getItem(LS_PASS)){ sessionStorage.setItem(SS_AUTH,'1'); unlock(); }
+      else { err.textContent='Şifre hatalı, tekrar deneyin.'; }
+    });
+  }
+
+  if(sessionStorage.getItem(SS_AUTH)==='1'){ unlock(); } else { setupGate(); }
+
   document.getElementById('logoutBtn') && document.getElementById('logoutBtn').addEventListener('click', function(){
     sessionStorage.removeItem(SS_AUTH); location.reload();
   });
@@ -120,8 +137,30 @@
   }
 
   function panel(title,body,collapsed){
-    return '<section class="panel'+(collapsed?' collapsed':'')+'"><div class="panel-head" data-toggle><h2>'+escH(title)+
+    // varsayılan: kapalı (yalnızca collapsed===false ise açık gelir)
+    var isOpen = collapsed===false;
+    return '<section class="panel'+(isOpen?'':' collapsed')+'"><div class="panel-head" data-toggle><h2>'+escH(title)+
       '</h2><span class="chev">▾</span></div><div class="panel-body">'+body+'</div></section>';
+  }
+
+  // Panel şifresi değiştirme kartı (yalnızca bu tarayıcıda saklanır)
+  function securityPanel(){
+    return panel('🔒 Panel Şifresi',
+      '<div class="hint" style="margin-bottom:12px">Şifre koda/gönderiye kaydedilmez; yalnızca bu tarayıcıda saklanır. Yeni bir cihazda ilk girişte tekrar belirlemeniz gerekir.</div>'+
+      '<div class="grid2">'+
+        '<div class="field"><label>Yeni Şifre (en az 4 karakter)</label><input id="npass1" type="password" autocomplete="new-password"></div>'+
+        '<div class="field"><label>Yeni Şifre (Tekrar)</label><input id="npass2" type="password" autocomplete="new-password"></div>'+
+      '</div>'+
+      '<button type="button" class="btn btn-outline btn-sm" data-action="changepass">Şifreyi Değiştir</button> <span class="status" id="passStatus"></span>');
+  }
+  async function changePass(){
+    var s=document.getElementById('passStatus');
+    var p1=val('npass1'), p2=val('npass2');
+    if(p1.length<4){ status(s,'Şifre en az 4 karakter olmalı.','err'); return; }
+    if(p1!==p2){ status(s,'Şifreler eşleşmiyor.','err'); return; }
+    localStorage.setItem(LS_PASS, await sha256(p1));
+    document.getElementById('npass1').value=''; document.getElementById('npass2').value='';
+    status(s,'Şifre güncellendi ✓','ok');
   }
 
   /* ---------- GitHub ayar paneli ---------- */
@@ -182,6 +221,7 @@
     var f=document.getElementById('form');
     f.innerHTML =
       ghPanel() +
+      securityPanel() +
       panel('🏷 Genel',
         inp('brand.name','Firma Adı','Peksu') +
         inp('brand.slogan','Slogan','Temiz su, kesintisiz hizmet.') +
@@ -261,7 +301,7 @@
       if(del){ var parts=del.getAttribute('data-del').split('|'); var pp=parts[0]; var idx=+parts[1];
         var a=getPath(state,pp); a.splice(idx,1); renderArrayInner(pp); return; }
       var act=e.target.closest('[data-action]');
-      if(act && act.getAttribute('data-action')==='test'){ testConnection(); }
+      if(act){ var a=act.getAttribute('data-action'); if(a==='test') testConnection(); else if(a==='changepass') changePass(); }
     });
 
     document.getElementById('saveBtn').addEventListener('click', saveGitHub);
