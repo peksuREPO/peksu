@@ -15,11 +15,11 @@
   },
   "heroStats": [
     {
-      "value": "5+",
+      "value": "20+",
       "label": "Yıllık Deneyim"
     },
     {
-      "value": "16",
+      "value": "15",
       "label": "Hizmet Bölgesi"
     },
     {
@@ -134,7 +134,7 @@
     ],
     "badges": [
       {
-        "value": "5+",
+        "value": "20+",
         "label": "Yıl Deneyim"
       },
       {
