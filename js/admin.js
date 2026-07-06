@@ -55,7 +55,8 @@
     'heroStats':       { add:'İstatistik Ekle', fields:[{k:'value',l:'Değer',ph:'25+'},{k:'label',l:'Etiket',ph:'Yıllık Deneyim'}] },
     'services.items':  { add:'Hizmet Ekle', fields:[{k:'icon',l:'İkon anahtarı ('+ICON_KEYS+')',ph:'drink'},{k:'title',l:'Başlık',ph:'İçme Suyu'},{k:'desc',l:'Açıklama',type:'area'}] },
     'steps.items':     { add:'Adım Ekle', fields:[{k:'title',l:'Başlık',ph:'Sipariş Oluşturun'},{k:'desc',l:'Açıklama',type:'area'}] },
-    'about.badges':    { add:'Rozet Ekle', fields:[{k:'value',l:'Değer',ph:'25+'},{k:'label',l:'Etiket',ph:'Yıl Deneyim'}] },
+    'about.badges':    { add:'Rozet Ekle', fields:[{k:'value',l:'Değer'},{k:'label',l:'Etiket'}] },
+    'about.why.items': { add:'Neden Ekle', fields:[{k:'title',l:'Başlık'},{k:'desc',l:'Açıklama',type:'area'}] },
     'fleet.items':     { add:'Araç Ekle', fields:[{k:'cap',l:'Kapasite',ph:'6'},{k:'unit',l:'Birim',ph:'ton'},{k:'img',l:'Araç Fotoğrafı',type:'image'},{k:'desc',l:'Açıklama',type:'area'}] },
     'faq.items':       { add:'Soru Ekle', fields:[{k:'q',l:'Soru'},{k:'a',l:'Cevap',type:'area'}] }
   };
@@ -69,15 +70,15 @@
 
   /* ---------- alan üreticiler ---------- */
   function inp(path,label,ph){ var v=getPath(state,path); v=v==null?'':v;
-    return '<div class="field"><label>'+escH(label)+'</label><input data-path="'+path+'" value="'+escA(v)+'" placeholder="'+escA(ph||'')+'"></div>'; }
+    return '<div class="field"><label>'+escH(label)+'</label><input data-path="'+path+'" value="'+escA(v)+'"></div>'; }
   function area(path,label,ph){ var v=getPath(state,path); v=v==null?'':v;
-    return '<div class="field ga-full"><label>'+escH(label)+'</label><textarea data-path="'+path+'" placeholder="'+escA(ph||'')+'">'+escH(v)+'</textarea></div>'; }
+    return '<div class="field ga-full"><label>'+escH(label)+'</label><textarea data-path="'+path+'">'+escH(v)+'</textarea></div>'; }
 
   function imageField(path,label){
     var v=getPath(state,path); v=v==null?'':v;
     var prev=v?'<img class="img-prev" src="'+escA(v)+'" alt="">':'<div class="img-prev empty">Görsel yok</div>';
     return '<div class="field ga-full"><label>'+escH(label)+'</label><div class="img-row">'+prev+
-      '<div class="img-ctrls"><input data-path="'+path+'" value="'+escA(v)+'" placeholder="assets/img/arac1.jpeg">'+
+      '<div class="img-ctrls"><input data-path="'+path+'" value="'+escA(v)+'">'+
       '<label class="btn btn-outline btn-sm upload-label">Bilgisayardan Yükle<input type="file" accept="image/*" data-upload="'+path+'" hidden></label></div></div></div>';
   }
   function objItems(p){
@@ -98,12 +99,12 @@
     var cfg=strArrays[p], arr=getPath(state,p)||[];
     if(cfg.wide){
       return arr.map(function(v,i){
-        return '<div class="rep-item"><div class="grid2"><div class="field ga-full" style="margin:0"><input data-path="'+p+'.'+i+'" value="'+escA(v)+'" placeholder="'+escA(cfg.ph)+'"></div></div>'+
+        return '<div class="rep-item"><div class="grid2"><div class="field ga-full" style="margin:0"><input data-path="'+p+'.'+i+'" value="'+escA(v)+'"></div></div>'+
           '<div style="margin-top:8px"><button type="button" class="btn btn-danger btn-sm" data-del="'+p+'|'+i+'">Sil</button></div></div>';
       }).join('');
     }
     return arr.map(function(v,i){
-      return '<span class="chip"><input data-path="'+p+'.'+i+'" value="'+escA(v)+'" placeholder="'+escA(cfg.ph)+'"><button type="button" data-del="'+p+'|'+i+'">×</button></span>';
+      return '<span class="chip"><input data-path="'+p+'.'+i+'" value="'+escA(v)+'"><button type="button" data-del="'+p+'|'+i+'">×</button></span>';
     }).join('');
   }
   function arrayEditor(p){
@@ -126,15 +127,15 @@
   /* ---------- GitHub ayar paneli ---------- */
   function ghPanel(){
     var cfg=JSON.parse(localStorage.getItem(LS_CFG)||'{}');
-    return panel('⚙ GitHub Bağlantısı (kaydetmek için gerekli)',
+    return panel('GitHub Bağlantısı',
       '<div class="grid3">'+
-        '<div class="field"><label>Kullanıcı/Org (owner)</label><input id="ghOwner" value="'+escA(cfg.owner||'')+'" placeholder="gkslavcii"></div>'+
-        '<div class="field"><label>Depo (repo)</label><input id="ghRepo" value="'+escA(cfg.repo||'')+'" placeholder="peksu"></div>'+
-        '<div class="field"><label>Dal (branch)</label><input id="ghBranch" value="'+escA(cfg.branch||'main')+'" placeholder="main"></div>'+
+        '<div class="field"><label>Kullanıcı/Org (owner)</label><input id="ghOwner" value="'+escA(cfg.owner||'')+'"></div>'+
+        '<div class="field"><label>Depo (repo)</label><input id="ghRepo" value="'+escA(cfg.repo||'')+'"></div>'+
+        '<div class="field"><label>Dal (branch)</label><input id="ghBranch" value="'+escA(cfg.branch||'main')+'"></div>'+
       '</div>'+
       '<div class="grid2">'+
         '<div class="field"><label>Dosya yolu</label><input id="ghPath" value="'+escA(cfg.path||'data/content.json')+'"></div>'+
-        '<div class="field"><label>Erişim Token (PAT)</label><input id="ghToken" type="password" value="'+escA(cfg.token||'')+'" placeholder="ghp_..."><div class="hint">Sadece bu tarayıcıda saklanır. Fine-grained token + Contents: Read/Write yetkisi yeterli.</div></div>'+
+        '<div class="field"><label>Erişim Token (PAT)</label><input id="ghToken" type="password" value="'+escA(cfg.token||'')+'"><div class="hint">Sadece bu tarayıcıda saklanır. Fine-grained token + Contents: Read/Write yetkisi yeterli.</div></div>'+
       '</div>'+
       '<button type="button" class="btn btn-outline btn-sm" data-action="test">🔌 Bağlantıyı Test Et</button> '+
       '<span class="status" id="ghTest"></span>',
@@ -225,7 +226,9 @@
       panel('ℹ Hakkımızda',
         inp('about.eyebrow','Üst etiket')+inp('about.title','Başlık')+area('about.text','Metin')+
         '<label class="field" style="font-weight:700">Özellikler</label>'+arrayEditor('about.features')+
-        '<label class="field" style="font-weight:700;margin-top:14px">Rozetler</label>'+arrayEditor('about.badges')) +
+        '<label class="field" style="font-weight:700;margin-top:14px">Rozetler</label>'+arrayEditor('about.badges')+
+        '<div class="grid2" style="margin-top:16px">'+inp('about.why.title','Neden Peksu — Başlık')+inp('about.why.subtitle','Neden Peksu — Alt açıklama')+'</div>'+
+        '<label class="field" style="font-weight:700">Neden Peksu Maddeleri</label>'+arrayEditor('about.why.items')) +
       panel('🚚 Araç Filosu',
         inp('fleet.eyebrow','Üst etiket')+inp('fleet.title','Başlık')+area('fleet.subtitle','Alt açıklama')+
         arrayEditor('fleet.items')) +

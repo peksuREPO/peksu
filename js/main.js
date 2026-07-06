@@ -82,6 +82,11 @@
     fill('aboutBadges', get(d, 'about.badges'), function (b) {
       return '<div class="badge-card"><strong>' + esc(b.value) + '</strong><span>' + esc(b.label) + '</span></div>';
     });
+    fill('whyGrid', get(d, 'about.why.items'), function (w) {
+      return '<article class="card why-card"><span class="why-ic">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
+        '</span><h3>' + esc(w.title) + '</h3><p>' + esc(w.desc) + '</p></article>';
+    });
     fill('fleetGrid', get(d, 'fleet.items'), function (f) {
       var photo = f.img ? '<div class="fleet-photo"><img src="' + esc(f.img) + '" alt="' + esc(f.cap) + ' ' + esc(f.unit) + ' su tankeri" loading="lazy"></div>' : '';
       return '<article class="card fleet' + (f.img ? ' has-photo' : '') + '">' + photo +

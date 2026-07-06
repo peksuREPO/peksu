@@ -149,7 +149,37 @@
         "value": "15",
         "label": "Bölge"
       }
-    ]
+    ],
+    "why": {
+      "title": "Neden Peksu?",
+      "subtitle": "Bizi tercih etmeniz için birçok nedeniniz var.",
+      "items": [
+        {
+          "title": "Yılların Deneyimi",
+          "desc": "20 yılı aşkın süredir Bodrum genelinde su dağıtımı yapıyor, her bölgenin ihtiyacını yakından biliyoruz."
+        },
+        {
+          "title": "Hijyen Önceliği",
+          "desc": "Paslanmaz krom tankerlerimiz periyodik olarak dezenfekte edilir; suyunuz kaynağından kapınıza temiz ulaşır."
+        },
+        {
+          "title": "Kesintisiz Hız",
+          "desc": "7 gün 24 saat hizmet veriyor, siparişinizi bekletmeden en kısa sürede adresinize ulaştırıyoruz."
+        },
+        {
+          "title": "Her Ölçeğe Kapasite",
+          "desc": "Küçük ev depolarından büyük şantiye ve otellere kadar farklı tonajlarda çözüm sunuyoruz."
+        },
+        {
+          "title": "Bakanlık Standartlarında Kalite",
+          "desc": "Suyumuz akredite laboratuvarlarda düzenli analiz edilir; güncel raporu talep üzerine paylaşırız."
+        },
+        {
+          "title": "Şeffaf ve Güvenilir",
+          "desc": "Net fiyat, zamanında teslimat ve güler yüzlü ekip; işimizi güvene dayalı yürütüyoruz."
+        }
+      ]
+    }
   },
   "fleet": {
     "eyebrow": "ARAÇ FİLOMUZ",

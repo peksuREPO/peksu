@@ -108,11 +108,6 @@ ul{list-style:none}
   filter:saturate(1.05)}
 .hero-photo::after{content:"";position:absolute;inset:0;
   background:linear-gradient(105deg,rgba(6,42,54,.55),transparent 55%)}
-.hero-sheen{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:screen;
-  background:radial-gradient(1200px 400px at 20% 0%,rgba(103,232,249,.18),transparent 60%),
-             radial-gradient(900px 500px at 90% 30%,rgba(34,211,238,.14),transparent 60%);
-  animation:sheen 12s ease-in-out infinite alternate}
-@keyframes sheen{from{transform:transl3d(0,0,0);opacity:.35}to{transform:translate3d(-30px,10px,0);opacity:.6}}
 .hero-inner{position:relative;z-index:2;max-width:770px}
 .eyebrow{display:inline-block;font-weight:800;font-size:.8rem;letter-spacing:.18em;color:var(--aqua-300);
   padding-bottom:6px;border-bottom:2px solid rgba(34,211,238,.5);margin-bottom:20px}
@@ -205,6 +200,15 @@ ul{list-style:none}
 .badge-card strong{font-family:var(--font-head);font-size:2.1rem;display:block;line-height:1}
 .badge-card span{font-weight:600;opacity:.85;font-size:.9rem}
 
+/* Neden Peksu */
+.why-wrap{margin-top:clamp(48px,7vw,80px)}
+.why-wrap .section-head{margin-bottom:36px}
+.why-card{display:flex;flex-direction:column}
+.why-card .why-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--grad-accent);color:#04222b;margin-bottom:14px}
+.why-card .why-ic svg{width:24px;height:24px}
+.why-card h3{font-size:1.15rem;margin-bottom:8px}
+.why-card p{color:var(--muted);font-size:.96rem}
+
 /* Filo */
 .card.fleet{padding:0;overflow:hidden;text-align:center}
 .fleet-photo{width:100%;height:200px;overflow:hidden;background:#dcecf1}
@@ -227,7 +231,7 @@ ul{list-style:none}
 .faq details p{padding:0 0 18px;color:var(--muted)}
 
 /* İletişim */
-.contact{background:var(--grad-deep);color:#fff;position:relative}
+.contact{background:linear-gradient(160deg,rgba(6,42,54,.9),rgba(6,42,54,.93)),url('../assets/img/pool.jpg') center/cover;color:#fff;position:relative}
 .contact h2{color:#fff}
 .contact-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
 .contact-text p{color:rgba(255,255,255,.82);margin-bottom:26px}
@@ -263,6 +267,7 @@ ul{list-style:none}
 .powered-by strong{color:#9fc6cf;font-weight:700}
 .powered-by:hover{color:var(--aqua-300)}
 .powered-by:hover strong{color:var(--aqua-300)}
+.powered-row{text-align:center;padding:8px 22px 16px}
 @media(max-width:520px){.footer-bottom-inner{justify-content:center;text-align:center}}
 
 /* Hukuki sayfalar (Gizlilik / KVKK) */
