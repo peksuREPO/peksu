@@ -88,8 +88,19 @@
         '</span><h3>' + esc(w.title) + '</h3><p>' + esc(w.desc) + '</p></article>';
     });
     fill('fleetGrid', get(d, 'fleet.items'), function (f) {
-      var photo = f.img ? '<div class="fleet-photo"><img src="' + esc(f.img) + '" alt="' + esc(f.cap) + ' ' + esc(f.unit) + ' su tankeri" loading="lazy"></div>' : '';
-      return '<article class="card fleet' + (f.img ? ' has-photo' : '') + '">' + photo +
+      var imgs = Array.isArray(f.images) ? f.images.filter(Boolean) : (f.img ? [f.img] : []);
+      var alt = esc(f.cap) + ' ' + esc(f.unit) + ' su tankeri';
+      var photo = '';
+      if (imgs.length) {
+        var slides = imgs.map(function (src, i) {
+          return '<img class="fg-slide' + (i === 0 ? ' active' : '') + '" src="' + esc(src) + '" alt="' + alt + '" loading="lazy">';
+        }).join('');
+        var dots = imgs.length > 1 ? '<div class="fg-dots">' + imgs.map(function (_, i) {
+          return '<button type="button" class="fg-dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '" aria-label="Fotoğraf ' + (i + 1) + '"></button>';
+        }).join('') + '</div>' : '';
+        photo = '<div class="fleet-photo"><div class="fgal">' + slides + '</div>' + dots + '</div>';
+      }
+      return '<article class="card fleet' + (imgs.length ? ' has-photo' : '') + '">' + photo +
         '<div class="fleet-body"><span class="fleet-cap">' + esc(f.cap) + '<small>' + esc(f.unit) + '</small></span><p>' + esc(f.desc) + '</p></div></article>';
     });
     fill('faqList', get(d, 'faq.items'), function (f) {
@@ -227,7 +238,44 @@
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     initScrollSpy();
+    initGalleries();
   }
+
+  // Filo kartlarındaki çoklu fotoğraf galerisi (fade + noktalar + otomatik)
+  function initGalleries() {
+    document.querySelectorAll('.fleet-photo').forEach(function (fp) {
+      var slides = fp.querySelectorAll('.fg-slide');
+      if (slides.length < 2 || fp.dataset.galInit) return;
+      fp.dataset.galInit = '1';
+      var dots = fp.querySelectorAll('.fg-dot'), idx = 0, timer;
+      function show(n) {
+        idx = (n + slides.length) % slides.length;
+        slides.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+      }
+      function start() { timer = setInterval(function () { show(idx + 1); }, 4000); }
+      function stop() { clearInterval(timer); }
+      dots.forEach(function (d) { d.addEventListener('click', function () { stop(); show(+d.getAttribute('data-i')); start(); }); });
+      fp.addEventListener('mouseenter', stop);
+      fp.addEventListener('mouseleave', start);
+      start();
+    });
+  }
+
+  // Ziyaretçi sayacı (Abacus) — oturum başına 1 kez artır
+  function bumpVisitor() {
+    try {
+      if (sessionStorage.getItem('peksu_counted') === '1') return;
+      sessionStorage.setItem('peksu_counted', '1');
+      var d = new Date(), p = function (n) { return n < 10 ? '0' + n : '' + n; };
+      var day = 'd-' + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+      var mon = 'm-' + d.getFullYear() + '-' + p(d.getMonth() + 1);
+      ['all', mon, day].forEach(function (k) {
+        fetch('https://abacus.jasoncameron.dev/hit/peksu-com-bodrum/' + k).catch(function () {});
+      });
+    } catch (e) {}
+  }
+  bumpVisitor();
 
   // Bulunulan bölümü nav'da vurgula
   function initScrollSpy() {

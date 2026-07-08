@@ -190,19 +190,19 @@
         "cap": "20",
         "unit": "ton",
         "desc": "İnşaat ve büyük ölçek.",
-        "img": "assets/img/arac1.jpeg"
+        "images": ["assets/img/arac1.jpeg"]
       },
       {
         "cap": "20",
         "unit": "ton",
         "desc": "Havuz ve toplu tesisler.",
-        "img": "assets/img/arac2.jpeg"
+        "images": ["assets/img/arac2.jpeg"]
       },
       {
         "cap": "6",
         "unit": "ton",
         "desc": "Ev ve iş yeri depoları.",
-        "img": "assets/img/arac3.jpeg"
+        "images": ["assets/img/arac3.jpeg"]
       }
     ]
   },

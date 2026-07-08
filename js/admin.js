@@ -37,25 +37,15 @@
   var gate=document.getElementById('gate'), app=document.getElementById('app');
   function unlock(){ gate.style.display='none'; app.hidden=false; init(); }
 
+  // Varsayılan şifre: peksu2026 (panelden değiştirilirse localStorage'daki geçerli olur)
+  var DEFAULT_HASH = 'a042a9ad533c05e6abaaef55a44c10bd5383d1fba9d38b5592f645076ec5150c';
+  function effectiveHash(){ return localStorage.getItem(LS_PASS) || DEFAULT_HASH; }
+
   function setupGate(){
-    var firstRun = !localStorage.getItem(LS_PASS);
-    var sub=document.querySelector('.gate-card p');
-    var btn=document.querySelector('#gateForm button[type=submit]');
-    if(firstRun){
-      if(sub) sub.textContent='İlk giriş — panel için bir şifre belirleyin (en az 4 karakter).';
-      if(btn) btn.textContent='Şifre Belirle';
-      document.getElementById('gatePass').setAttribute('autocomplete','new-password');
-    }
     document.getElementById('gateForm').addEventListener('submit', async function(e){
       e.preventDefault();
       var err=document.getElementById('gateErr');
-      var val=document.getElementById('gatePass').value;
-      if(firstRun){
-        if(val.length<4){ err.textContent='Şifre en az 4 karakter olmalı.'; return; }
-        localStorage.setItem(LS_PASS, await sha256(val));
-        sessionStorage.setItem(SS_AUTH,'1'); unlock(); return;
-      }
-      if((await sha256(val))===localStorage.getItem(LS_PASS)){ sessionStorage.setItem(SS_AUTH,'1'); unlock(); }
+      if((await sha256(document.getElementById('gatePass').value))===effectiveHash()){ sessionStorage.setItem(SS_AUTH,'1'); unlock(); }
       else { err.textContent='Şifre hatalı, tekrar deneyin.'; }
     });
   }
@@ -74,7 +64,7 @@
     'steps.items':     { add:'Adım Ekle', fields:[{k:'title',l:'Başlık',ph:'Sipariş Oluşturun'},{k:'desc',l:'Açıklama',type:'area'}] },
     'about.badges':    { add:'Rozet Ekle', fields:[{k:'value',l:'Değer'},{k:'label',l:'Etiket'}] },
     'about.why.items': { add:'Neden Ekle', fields:[{k:'title',l:'Başlık'},{k:'desc',l:'Açıklama',type:'area'}] },
-    'fleet.items':     { add:'Araç Ekle', fields:[{k:'cap',l:'Kapasite',ph:'6'},{k:'unit',l:'Birim',ph:'ton'},{k:'img',l:'Araç Fotoğrafı',type:'image'},{k:'desc',l:'Açıklama',type:'area'}] },
+    'fleet.items':     { add:'Araç Ekle', fields:[{k:'cap',l:'Kapasite'},{k:'unit',l:'Birim'},{k:'images',l:'Araç Fotoğrafları',type:'images'},{k:'desc',l:'Açıklama',type:'area'}] },
     'faq.items':       { add:'Soru Ekle', fields:[{k:'q',l:'Soru'},{k:'a',l:'Cevap',type:'area'}] }
   };
   var strArrays = {
@@ -98,6 +88,17 @@
       '<div class="img-ctrls"><input data-path="'+path+'" value="'+escA(v)+'">'+
       '<label class="btn btn-outline btn-sm upload-label">Bilgisayardan Yükle<input type="file" accept="image/*" data-upload="'+path+'" hidden></label></div></div></div>';
   }
+  // Çoklu görsel alanı (önizleme + kaldır + yükle). accept="image/*" mobilde galeri/kamera seçeneği sunar.
+  function imagesField(path,label){
+    var arr=getPath(state,path); if(!Array.isArray(arr)) arr=[];
+    var thumbs=arr.map(function(src,i){
+      return '<div class="img-thumb"><img src="'+escA(src)+'" alt=""><button type="button" class="img-del" data-imgdel="'+path+'|'+i+'" aria-label="Kaldır">×</button></div>';
+    }).join('');
+    return '<div class="field ga-full"><label>'+escH(label)+' <span style="font-weight:500;color:var(--muted)">(birden fazla eklenebilir)</span></label>'+
+      '<div class="img-grid">'+thumbs+
+        '<label class="img-add">+ Fotoğraf Ekle<input type="file" accept="image/*" multiple data-upload-append="'+path+'" hidden></label>'+
+      '</div></div>';
+  }
   function objItems(p){
     var cfg=objArrays[p], arr=getPath(state,p)||[];
     return arr.map(function(it,i){
@@ -105,6 +106,7 @@
         var fp=p+'.'+i+'.'+f.k;
         if(f.type==='area') return area(fp,f.l,f.ph);
         if(f.type==='image') return imageField(fp,f.l);
+        if(f.type==='images') return imagesField(fp,f.l);
         return inp(fp,f.l,f.ph);
       }).join('');
       return '<div class="rep-item"><div class="rep-head"><span class="num">'+(i+1)+'</span>'+
@@ -146,8 +148,8 @@
   // Panel şifresi değiştirme kartı (yalnızca bu tarayıcıda saklanır)
   function securityPanel(){
     return panel('🔒 Panel Şifresi',
-      '<div class="hint" style="margin-bottom:12px">Şifre koda/gönderiye kaydedilmez; yalnızca bu tarayıcıda saklanır. Yeni bir cihazda ilk girişte tekrar belirlemeniz gerekir.</div>'+
-      '<div class="grid2">'+
+      '<div class="grid3">'+
+        '<div class="field"><label>Mevcut Şifre</label><input id="cpass" type="password" autocomplete="current-password"></div>'+
         '<div class="field"><label>Yeni Şifre (en az 4 karakter)</label><input id="npass1" type="password" autocomplete="new-password"></div>'+
         '<div class="field"><label>Yeni Şifre (Tekrar)</label><input id="npass2" type="password" autocomplete="new-password"></div>'+
       '</div>'+
@@ -155,11 +157,12 @@
   }
   async function changePass(){
     var s=document.getElementById('passStatus');
-    var p1=val('npass1'), p2=val('npass2');
-    if(p1.length<4){ status(s,'Şifre en az 4 karakter olmalı.','err'); return; }
-    if(p1!==p2){ status(s,'Şifreler eşleşmiyor.','err'); return; }
+    var cur=val('cpass'), p1=val('npass1'), p2=val('npass2');
+    if((await sha256(cur))!==effectiveHash()){ status(s,'Mevcut şifre hatalı.','err'); return; }
+    if(p1.length<4){ status(s,'Yeni şifre en az 4 karakter olmalı.','err'); return; }
+    if(p1!==p2){ status(s,'Yeni şifreler eşleşmiyor.','err'); return; }
     localStorage.setItem(LS_PASS, await sha256(p1));
-    document.getElementById('npass1').value=''; document.getElementById('npass2').value='';
+    document.getElementById('cpass').value=''; document.getElementById('npass1').value=''; document.getElementById('npass2').value='';
     status(s,'Şifre güncellendi ✓','ok');
   }
 
@@ -212,14 +215,71 @@
       if(!r.ok){ var e=await r.json().catch(function(){return {};}); throw new Error(e.message||('HTTP '+r.status)); }
       setPath(state, path, repoPath);
       renderArrayInner('fleet.items');
-      status(s,'Görsel yüklendi ✓ Şimdi "GitHub\'a Kaydet" ile içeriği de kaydedin.','ok');
+      status(s,'Görsel yüklendi ✓ Şimdi "Kaydet" ile içeriği de kaydedin.','ok');
     }catch(err){ status(s,'Görsel yüklenemedi: '+err.message,'err'); }
+  }
+  // Seçilen bir veya birden fazla görseli yükle, dizi alanına ekle
+  async function uploadImagesAppend(input){
+    var path=input.getAttribute('data-upload-append');
+    var files=Array.prototype.slice.call(input.files||[]); if(!files.length) return;
+    var s=document.getElementById('saveStatus'); var cfg=readCfg();
+    if(!cfg.owner||!cfg.repo||!cfg.token){ status(s,'Önce GitHub bağlantısını doldurun.','err'); return; }
+    var arr=getPath(state,path); if(!Array.isArray(arr)){ arr=[]; setPath(state,path,arr); }
+    status(s,files.length+' görsel yükleniyor...','info');
+    try{
+      for(var i=0;i<files.length;i++){
+        var file=files[i];
+        if(file.size>5*1024*1024){ status(s,file.name+' 5MB\'dan büyük, atlandı.','err'); continue; }
+        var ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+        var repoPath='assets/img/arac-'+Date.now()+'-'+i+'.'+ext;
+        var b64=await fileToB64(file);
+        var url='https://api.github.com/repos/'+cfg.owner+'/'+cfg.repo+'/contents/'+repoPath;
+        var r=await fetch(url,{ method:'PUT', headers: ghHeaders(cfg.token), body: JSON.stringify({ message:'Araç görseli yüklendi: '+repoPath, content:b64, branch:cfg.branch }) });
+        if(!r.ok){ var e=await r.json().catch(function(){return {};}); throw new Error(e.message||('HTTP '+r.status)); }
+        arr.push(repoPath);
+      }
+      renderArrayInner('fleet.items');
+      status(s,'Görseller yüklendi ✓ Şimdi "Kaydet" ile içeriği de kaydedin.','ok');
+    }catch(err){ status(s,'Yükleme hatası: '+err.message,'err'); }
+  }
+
+  /* ---------- Ziyaretçi istatistikleri (Abacus) ---------- */
+  function abGet(key){
+    return fetch('https://abacus.jasoncameron.dev/get/peksu-com-bodrum/'+key)
+      .then(function(r){ return r.ok?r.json():{value:0}; })
+      .then(function(j){ return (j&&typeof j.value==='number')?j.value:0; })
+      .catch(function(){ return 0; });
+  }
+  function loadStats(){
+    var d=new Date(), p=function(n){return n<10?'0'+n:''+n;};
+    var today='d-'+d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+    var mon='m-'+d.getFullYear()+'-'+p(d.getMonth()+1);
+    var week=[]; for(var i=0;i<7;i++){ var dd=new Date(d); dd.setDate(d.getDate()-i); week.push('d-'+dd.getFullYear()+'-'+p(dd.getMonth()+1)+'-'+p(dd.getDate())); }
+    var set=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+    abGet(today).then(function(v){set('stToday',v);});
+    abGet(mon).then(function(v){set('stMonth',v);});
+    abGet('all').then(function(v){set('stAll',v);});
+    Promise.all(week.map(abGet)).then(function(a){ set('stWeek', a.reduce(function(x,y){return x+y;},0)); });
+  }
+
+  // Karşılama + ziyaretçi istatistikleri (Madde 8 + 4). İsim: ADMIN_NAME.
+  var ADMIN_NAME = 'Mehmet';
+  function welcomeBlock(){
+    return '<div class="welcome"><h2>Hoşgeldin '+escH(ADMIN_NAME)+',</h2><p>Bugün ne değişiklik yapmak istersin?</p></div>'+
+      '<div class="stats-wrap"><div class="stats-title">Ziyaretçi İstatistikleri</div>'+
+      '<div class="stats-cards">'+
+        '<div class="stat"><span class="stat-label">Bugün</span><strong id="stToday">…</strong></div>'+
+        '<div class="stat"><span class="stat-label">Bu Hafta</span><strong id="stWeek">…</strong></div>'+
+        '<div class="stat"><span class="stat-label">Bu Ay</span><strong id="stMonth">…</strong></div>'+
+        '<div class="stat"><span class="stat-label">Tüm Zamanlar</span><strong id="stAll">…</strong></div>'+
+      '</div></div>';
   }
 
   /* ---------- formu kur ---------- */
   function buildForm(){
     var f=document.getElementById('form');
     f.innerHTML =
+      welcomeBlock() +
       ghPanel() +
       securityPanel() +
       panel('🏷 Genel',
@@ -276,6 +336,7 @@
         inp('faq.eyebrow','Üst etiket')+inp('faq.title','Başlık')+arrayEditor('faq.items')) +
       panel('✉ İletişim Bölümü (alt CTA)',
         inp('contactSection.eyebrow','Üst etiket')+inp('contactSection.title','Başlık')+area('contactSection.text','Metin'));
+    loadStats();
   }
 
   /* ---------- olay dinleyiciler ---------- */
@@ -287,7 +348,9 @@
     });
     f.addEventListener('change', function(e){
       var up=e.target.closest('input[type=file][data-upload]');
-      if(up) uploadImage(up);
+      if(up){ uploadImage(up); return; }
+      var app=e.target.closest('input[type=file][data-upload-append]');
+      if(app){ uploadImagesAppend(app); }
     });
     f.addEventListener('click', function(e){
       var t=e.target.closest('[data-toggle]');
@@ -297,6 +360,9 @@
         if(objArrays[p]){ var o={}; objArrays[p].fields.forEach(function(fl){o[fl.k]='';}); arr.push(o); }
         else { arr.push(''); }
         setPath(state,p,arr); renderArrayInner(p); return; }
+      var imgdel=e.target.closest('[data-imgdel]');
+      if(imgdel){ var ip=imgdel.getAttribute('data-imgdel').split('|'); var ia=getPath(state,ip[0]);
+        if(Array.isArray(ia)){ ia.splice(+ip[1],1); renderArrayInner('fleet.items'); } return; }
       var del=e.target.closest('[data-del]');
       if(del){ var parts=del.getAttribute('data-del').split('|'); var pp=parts[0]; var idx=+parts[1];
         var a=getPath(state,pp); a.splice(idx,1); renderArrayInner(pp); return; }

@@ -211,9 +211,13 @@ ul{list-style:none}
 
 /* Filo */
 .card.fleet{padding:0;overflow:hidden;text-align:center}
-.fleet-photo{width:100%;height:200px;overflow:hidden;background:#dcecf1}
-.fleet-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-.card.fleet:hover .fleet-photo img{transform:scale(1.06)}
+.fleet-photo{position:relative;width:100%;height:200px;overflow:hidden;background:#dcecf1}
+.fgal{position:relative;width:100%;height:100%}
+.fleet-photo .fg-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s ease}
+.fleet-photo .fg-slide.active{opacity:1}
+.fg-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:6px;z-index:2}
+.fg-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.55);cursor:pointer;transition:background .15s}
+.fg-dot.active{background:#fff}
 .fleet-body{padding:24px 22px 26px}
 .fleet-cap{font-family:var(--font-head);font-weight:800;font-size:2.4rem;color:var(--aqua-700);display:block;line-height:1;margin-bottom:8px}
 .fleet-cap small{font-size:.9rem;font-weight:700;color:var(--muted);margin-left:3px}
