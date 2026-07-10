@@ -55,7 +55,7 @@
       {
         "icon": "construction",
         "title": "İnşaat Suyu",
-        "desc": "İnşaat ve yapı işleriniz için 1-25 ton kapasiteli su tedariki."
+        "desc": "İnşaat ve yapı işleriniz için ihtiyacınızca su tedariki."
       },
       {
         "icon": "site",
@@ -190,19 +190,25 @@
         "cap": "20",
         "unit": "ton",
         "desc": "İnşaat ve büyük ölçek.",
-        "images": ["assets/img/arac1.jpeg"]
+        "images": [
+          "assets/img/arac1.jpeg"
+        ]
       },
       {
         "cap": "20",
         "unit": "ton",
         "desc": "Havuz ve toplu tesisler.",
-        "images": ["assets/img/arac2.jpeg"]
+        "images": [
+          "assets/img/arac2.jpeg"
+        ]
       },
       {
         "cap": "6",
         "unit": "ton",
         "desc": "Ev ve iş yeri depoları.",
-        "images": ["assets/img/arac3.jpeg"]
+        "images": [
+          "assets/img/arac3.jpeg"
+        ]
       }
     ]
   },
