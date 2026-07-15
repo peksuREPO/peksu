@@ -256,10 +256,17 @@
     var mon='m-'+d.getFullYear()+'-'+p(d.getMonth()+1);
     var week=[]; for(var i=0;i<7;i++){ var dd=new Date(d); dd.setDate(d.getDate()-i); week.push('d-'+dd.getFullYear()+'-'+p(dd.getMonth()+1)+'-'+p(dd.getDate())); }
     var set=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
-    abGet(today).then(function(v){set('stToday',v);});
-    abGet(mon).then(function(v){set('stMonth',v);});
-    abGet('all').then(function(v){set('stAll',v);});
-    Promise.all(week.map(abGet)).then(function(a){ set('stWeek', a.reduce(function(x,y){return x+y;},0)); });
+    Promise.all([
+      abGet(today),
+      Promise.all(week.map(abGet)).then(function(a){ return a.reduce(function(x,y){return x+y;},0); }),
+      abGet(mon),
+      abGet('all')
+    ]).then(function(r){
+      var t=r[0], w=r[1], m=r[2], a=r[3];
+      // Mantıksal tutarlılık: Bugün <= Bu Hafta <= Bu Ay <= Tüm Zamanlar
+      w=Math.max(w,t); m=Math.max(m,w); a=Math.max(a,m);
+      set('stToday',t); set('stWeek',w); set('stMonth',m); set('stAll',a);
+    });
   }
 
   // Karşılama + ziyaretçi istatistikleri (Madde 8 + 4). İsim: ADMIN_NAME.

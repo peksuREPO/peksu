@@ -262,17 +262,23 @@
     });
   }
 
-  // Ziyaretçi sayacı (Abacus) — oturum başına 1 kez artır
+  // Ziyaretçi sayacı (Abacus) — oturum başına 1 kez, artışları SIRAYLA (düşmeyi azaltmak için)
   function bumpVisitor() {
     try {
       if (sessionStorage.getItem('peksu_counted') === '1') return;
       sessionStorage.setItem('peksu_counted', '1');
       var d = new Date(), p = function (n) { return n < 10 ? '0' + n : '' + n; };
-      var day = 'd-' + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
-      var mon = 'm-' + d.getFullYear() + '-' + p(d.getMonth() + 1);
-      ['all', mon, day].forEach(function (k) {
-        fetch('https://abacus.jasoncameron.dev/hit/peksu-com-bodrum/' + k).catch(function () {});
-      });
+      var keys = [
+        'all',
+        'm-' + d.getFullYear() + '-' + p(d.getMonth() + 1),
+        'd-' + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate())
+      ];
+      (function next(i) {
+        if (i >= keys.length) return;
+        fetch('https://abacus.jasoncameron.dev/hit/peksu-com-bodrum/' + keys[i])
+          .catch(function () {})
+          .then(function () { next(i + 1); });
+      })(0);
     } catch (e) {}
   }
   bumpVisitor();
