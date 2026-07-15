@@ -5,11 +5,11 @@
     "logo": "assets/img/logo.png"
   },
   "hero": {
-    "eyebrow": "TURGUTREİS VE ÇEVRESİNDE 7/24 TANKERLE SU",
-    "titleLead": "Turgutreis'e",
-    "titleHighlight": "tankerle su,",
-    "titleTail": "kapınıza kadar.",
-    "lead": "Peksu; Turgutreis ve çevresinde evinize, iş yerinize, otel ve şantiyenize tankerle hijyenik, bakanlık standartlarında ve zamanında su tedariki sağlar.",
+    "eyebrow": "BODRUM GENELİ 7/24 SU DAĞITIMI",
+    "titleLead": "Temiz su,",
+    "titleHighlight": "kesintisiz",
+    "titleTail": "hizmet.",
+    "lead": "Peksu; evinize, iş yerinize, otel ve şantiyenize hijyenik, bakanlık standartlarında ve zamanında su tedariki sağlar.",
     "primaryBtn": "Sipariş Ver",
     "secondaryBtn": "Hizmetleri İncele"
   },
@@ -89,8 +89,8 @@
   },
   "regions": {
     "eyebrow": "HİZMET BÖLGELERİ",
-    "title": "Turgutreis merkezli, Bodrum genelinde hizmetinizdeyiz",
-    "subtitle": "Turgutreis ve çevresi başta olmak üzere aşağıdaki bölgelerin tamamına düzenli ve hızlı dağıtım yapıyoruz.",
+    "title": "Bodrum genelinde hizmetinizdeyiz",
+    "subtitle": "Aşağıdaki bölgelerin tamamına düzenli ve hızlı dağıtım yapıyoruz.",
     "items": [
       "Merkez",
       "Konacık",
@@ -124,8 +124,8 @@
   },
   "about": {
     "eyebrow": "HAKKIMIZDA",
-    "title": "Turgutreis'in güvenilir su tedarikçisi",
-    "text": "Peksu olarak uzun yıllardır Turgutreis ve Bodrum genelinde temiz ve kesintisiz su dağıtımı yapıyoruz. Hijyene önem veren araç filomuz ve deneyimli ekibimizle, siparişinizi zamanında ve eksiksiz teslim etmeyi ilke edindik.",
+    "title": "Bodrum'un güvenilir su tedarikçisi",
+    "text": "Peksu olarak uzun yıllardır Bodrum genelinde temiz ve kesintisiz su dağıtımı yapıyoruz. Hijyene önem veren araç filomuz ve deneyimli ekibimizle, siparişinizi zamanında ve eksiksiz teslim etmeyi ilke edindik.",
     "features": [
       "Paslanmaz, düzenli dezenfekte edilen tankerler",
       "7 gün 24 saat kesintisiz hizmet",
