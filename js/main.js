@@ -107,7 +107,7 @@
       return '<details><summary>' + esc(f.q) + '</summary><p>' + esc(f.a) + '</p></details>';
     });
 
-    document.title = (get(d, 'brand.name') || 'Peksu') + ' | Temiz Su Dağıtım Hizmeti';
+    document.title = (get(d, 'brand.name') || 'Peksu') + ' | Bodrum & Turgutreis Tankerle Su Dağıtımı';
     buildOrderModal(d);
     initInteractions();
   }
